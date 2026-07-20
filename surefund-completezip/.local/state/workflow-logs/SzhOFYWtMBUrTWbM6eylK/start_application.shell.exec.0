@@ -1,0 +1,111 @@
+
+> surefund-financial-services@1.0.0 dev
+> next dev -p 5000
+
+[1G[0K   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 2.6s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 10.6s (1371 modules)
+ GET / [32m200[39m in 11697ms
+ [33m[1m⚠[22m[39m Cross origin request detected from 17eaea79-9438-4019-951f-8d89df2f40a8-00-9yg5nu8saqhb.sisko.replit.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ [37m[1m○[22m[39m Compiling /emi-calculator ...
+ [32m[1m✓[22m[39m Compiled /emi-calculator in 1448ms (1382 modules)
+ GET /emi-calculator [32m200[39m in 1616ms
+ GET /emi-calculator [32m200[39m in 58ms
+ GET / [32m200[39m in 78ms
+ [37m[1m○[22m[39m Compiling /_not-found ...
+ [32m[1m✓[22m[39m Compiled /_not-found in 685ms (1373 modules)
+ GET /cibil-check [33m404[39m in 983ms
+ GET / [32m200[39m in 234ms
+ GET / [32m200[39m in 116ms
+ GET /cibil-check [33m404[39m in 52ms
+ GET / [32m200[39m in 111ms
+ [32m[1m✓[22m[39m Compiled /personal-loan in 461ms (1381 modules)
+ GET /personal-loan [32m200[39m in 936ms
+ [37m[1m○[22m[39m Compiling /apply/[productType] ...
+ [32m[1m✓[22m[39m Compiled /apply/[productType] in 1157ms (1425 modules)
+ [31m[1m⨯[22m[39m [Error: Cannot find module './vendor-chunks/@swc.js'
+Require stack:
+- /home/runner/workspace/.next/server/webpack-runtime.js
+- /home/runner/workspace/.next/server/app/apply/[productType]/page.js
+- /home/runner/workspace/node_modules/next/dist/server/require.js
+- /home/runner/workspace/node_modules/next/dist/server/load-components.js
+- /home/runner/workspace/node_modules/next/dist/build/utils.js
+- /home/runner/workspace/node_modules/next/dist/server/dev/static-paths-worker.js
+- /home/runner/workspace/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: [32m'Error'[39m,
+  code: [32m'MODULE_NOT_FOUND'[39m,
+  requireStack: [36m[Array][39m,
+  page: [32m'/apply/personal-loan'[39m
+}
+ [37m[1m○[22m[39m Compiling /_error ...
+ [32m[1m✓[22m[39m Compiled /_error in 2.7s (1771 modules)
+ GET /apply/personal-loan [31m500[39m in 5712ms
+ GET /personal-loan [32m200[39m in 310ms
+ [37m[1m○[22m[39m Compiling /about ...
+ [32m[1m✓[22m[39m Compiled /about in 636ms (1776 modules)
+ GET /about [32m200[39m in 1151ms
+ [32m[1m✓[22m[39m Compiled /blog in 458ms (1780 modules)
+ GET /blog [32m200[39m in 775ms
+ [37m[1m○[22m[39m Compiling /faq ...
+ [32m[1m✓[22m[39m Compiled /faq in 3.2s (1793 modules)
+ GET /faq [32m200[39m in 3388ms
+ [37m[1m○[22m[39m Compiling /disclaimer ...
+ [32m[1m✓[22m[39m Compiled /disclaimer in 905ms (1796 modules)
+ GET /disclaimer [32m200[39m in 1141ms
+ [37m[1m○[22m[39m Compiling /business-loan ...
+ [32m[1m✓[22m[39m Compiled /business-loan in 891ms (1774 modules)
+ GET /business-loan [32m200[39m in 1275ms
+ [37m[1m○[22m[39m Compiling /credit-card ...
+ [32m[1m✓[22m[39m Compiled /credit-card in 613ms (1776 modules)
+ GET /credit-card [32m200[39m in 897ms
+ [37m[1m○[22m[39m Compiling /contact ...
+ [32m[1m✓[22m[39m Compiled /contact in 873ms (1784 modules)
+ GET /contact [32m200[39m in 1063ms
+ GET / [32m200[39m in 176ms
+ GET / [32m200[39m in 106ms
+ [32m[1m✓[22m[39m Compiled in 3.1s (798 modules)
+ [32m[1m✓[22m[39m Compiled in 400ms (798 modules)
+ [32m[1m✓[22m[39m Compiled in 3.6s (1770 modules)
+ GET / [32m200[39m in 519ms
+ GET / [32m200[39m in 243ms
+ GET / [32m200[39m in 152ms
+ GET / [32m200[39m in 177ms
+ GET / [32m200[39m in 167ms
+ GET / [32m200[39m in 185ms
+ [37m[1m○[22m[39m Compiling /personal-loan ...
+ [32m[1m✓[22m[39m Compiled /personal-loan in 678ms (974 modules)
+ GET /personal-loan [32m200[39m in 979ms
+ [37m[1m○[22m[39m Compiling /business-loan ...
+ [32m[1m✓[22m[39m Compiled /business-loan in 1048ms (976 modules)
+ GET /business-loan [32m200[39m in 1282ms
+ GET / [32m200[39m in 213ms
+ [32m[1m✓[22m[39m Compiled in 1531ms (803 modules)
+ [32m[1m✓[22m[39m Compiled in 4.3s (1774 modules)
+ GET / [32m200[39m in 697ms
+ [32m[1m✓[22m[39m Compiled in 3.8s (1774 modules)
+ [32m[1m✓[22m[39m Compiled in 3.7s (1807 modules)
+ [32m[1m✓[22m[39m Compiled in 2.9s (1807 modules)
+ GET / [32m200[39m in 515ms
+ GET / [32m200[39m in 334ms
+ [32m[1m✓[22m[39m Compiled in 2.8s (1807 modules)
+ GET / [32m200[39m in 420ms
+ GET / [32m200[39m in 228ms
+ GET / [32m200[39m in 193ms
+ GET /emi-calculator [32m200[39m in 151ms
+ GET / [32m200[39m in 175ms
+ GET / [32m200[39m in 262ms
+ GET / [32m200[39m in 204ms
+ GET / [32m200[39m in 178ms
+ [32m[1m✓[22m[39m Compiled in 5s (1807 modules)
+ [32m[1m✓[22m[39m Compiled in 1572ms (1807 modules)
+ [32m[1m✓[22m[39m Compiled in 670ms (1807 modules)
+ [32m[1m✓[22m[39m Compiled in 471ms (1807 modules)
+ [32m[1m✓[22m[39m Compiled in 2.9s (1807 modules)
+[?25h
+[1G[0K⠙[1G[0K

@@ -1,0 +1,53 @@
+{
+  "name": "surefund-financial-services",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.19",
+    "@radix-ui/react-select": "^2.3.3",
+    "@radix-ui/react-tabs": "^1.1.17",
+    "@radix-ui/react-toast": "^1.2.19",
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.10.0",
+    "clsx": "^2.1.1",
+    "cookie": "^0.6.0",
+    "date-fns": "^3.6.0",
+    "dotenv": "^17.4.2",
+    "framer-motion": "^11.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^0.446.0",
+    "mongoose": "^8.24.1",
+    "next": "^15.5.20",
+    "nodemailer": "^6.10.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^2.6.1",
+    "tsconfig-paths": "^4.2.0",
+    "twilio": "^5.13.1",
+    "typescript": "^5.5.4",
+    "xlsx": "^0.18.5",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie": "^0.6.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.19.43",
+    "@types/nodemailer": "^6.4.24",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "autoprefixer": "^10.5.3",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.20",
+    "postcss": "^8.5.19",
+    "tailwindcss": "^3.4.19"
+  }
+}

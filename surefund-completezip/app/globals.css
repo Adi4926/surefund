@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-primary font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* ── Glass utilities ── */
+  .glass {
+    @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-card rounded-2xl;
+  }
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-card rounded-2xl;
+  }
+  .glass-dark {
+    @apply bg-primary/40 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+  .glass-navy {
+    background: rgba(10, 37, 64, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-secondary px-6 py-3
+           font-semibold text-white shadow-glow transition-all duration-300
+           hover:bg-secondary-light hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-xl bg-gradient-accent px-6 py-3
+           font-semibold text-primary shadow-glow-accent transition-all duration-300
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-xl border-2 border-white/70 px-6 py-3
+           font-semibold text-white transition-all duration-300 hover:bg-white/10;
+  }
+  .section {
+    @apply mx-auto max-w-7xl px-6 py-20 md:px-10;
+  }
+}
+
+/* ── Marquee animation ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ── Subtle floating pulse for hero orbs ── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-20px); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(16px); }
+}
+
+/* ── Scroll-reveal fade-up (for non-motion sections) ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

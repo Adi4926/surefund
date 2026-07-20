@@ -1,0 +1,58 @@
+modules = ["nodejs-20"]
+[nix]
+channel = "stable-25_05"
+
+[agent]
+expertMode = true
+
+[userenv]
+
+[userenv.shared]
+ADMIN_DEFAULT_PASSWORD = "ChangeMe123!"
+ADMIN_EMAIL = "admin@surefund.in"
+CLOUDINARY_API_KEY = "stub"
+CLOUDINARY_API_SECRET = "stub"
+CLOUDINARY_CLOUD_NAME = "stub"
+JWT_EXPIRES_IN = "7d"
+JWT_SECRET = "surefund-dev-jwt-secret-replace-in-production"
+MONGODB_URI = "mongodb://127.0.0.1:27017/surefund"
+NEXT_PUBLIC_APP_URL = "http://localhost:5000"
+NEXT_PUBLIC_COMPANY_EMAIL = "info@surefund.in"
+NEXT_PUBLIC_COMPANY_PHONE = "+911234567890"
+NEXT_PUBLIC_COMPANY_WHATSAPP = "+911234567890"
+NOTIFY_EMAIL_TO = "info@surefund.in"
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PASS = "stub"
+SMTP_PORT = "465"
+SMTP_SECURE = "true"
+SMTP_USER = "info@surefund.in"
+TWILIO_ACCOUNT_SID = "stub"
+TWILIO_AUTH_TOKEN = "stub"
+TWILIO_VERIFY_SERVICE_SID = "stub"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev -- -p 5000"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000

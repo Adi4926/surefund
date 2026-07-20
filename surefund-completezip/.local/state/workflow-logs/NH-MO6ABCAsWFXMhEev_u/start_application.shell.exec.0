@@ -1,0 +1,27 @@
+
+> surefund-financial-services@1.0.0 dev
+> next dev -p 5000
+
+[1G[0K   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 2.2s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 4.2s (1455 modules)
+ GET / [32m200[39m in 5965ms
+ [33m[1m⚠[22m[39m Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ [33m[1m⚠[22m[39m Found a change in next.config.js. Restarting the server to apply the changes...
+   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 2.7s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 3.1s (1455 modules)
+ GET / [32m200[39m in 3939ms
+ [33m[1m⚠[22m[39m Blocked cross-origin request from 127.0.0.1 to /_next/* resource. To allow this, configure "allowedDevOrigins" in next.config
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins

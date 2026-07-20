@@ -1,0 +1,88 @@
+[1G[0K⠙[1G[0K
+> surefund-financial-services@1.0.0 dev
+> next dev -p 5000
+
+[1G[0K⠙[1G[0K   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 4.6s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 2.9s (1413 modules)
+ GET / [32m200[39m in 3619ms
+ [33m[1m⚠[22m[39m Cross origin request detected from 17eaea79-9438-4019-951f-8d89df2f40a8-00-9yg5nu8saqhb.sisko.replit.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ [32m[1m✓[22m[39m Compiled in 3.3s (640 modules)
+ GET / [32m200[39m in 88ms
+ [32m[1m✓[22m[39m Compiled in 1694ms (1427 modules)
+ GET / [32m200[39m in 998ms
+ GET / [32m200[39m in 76ms
+ [32m[1m✓[22m[39m Compiled in 1349ms (1427 modules)
+ GET / [32m200[39m in 1060ms
+ GET / [32m200[39m in 57ms
+ [32m[1m✓[22m[39m Compiled in 594ms (640 modules)
+ GET / [32m200[39m in 77ms
+ [32m[1m✓[22m[39m Compiled in 2.3s (1433 modules)
+ GET / [32m200[39m in 114ms
+ [32m[1m✓[22m[39m Compiled in 640ms (1433 modules)
+ GET / [32m200[39m in 158ms
+ [32m[1m✓[22m[39m Compiled in 459ms (640 modules)
+ GET / [32m200[39m in 116ms
+ [32m[1m✓[22m[39m Compiled in 274ms (640 modules)
+ GET / [32m200[39m in 64ms
+ [32m[1m✓[22m[39m Compiled in 187ms (640 modules)
+ GET / [32m200[39m in 52ms
+ [32m[1m✓[22m[39m Compiled in 1360ms (1433 modules)
+ GET / [32m200[39m in 904ms
+ GET / [32m200[39m in 62ms
+ GET / [32m200[39m in 457ms
+ [33m[1m⚠[22m[39m Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ [37m[1m○[22m[39m Compiling /careers ...
+ [32m[1m✓[22m[39m Compiled /careers in 1020ms (1429 modules)
+ GET /careers [32m200[39m in 1758ms
+ GET / [32m200[39m in 241ms
+ GET /careers [32m200[39m in 104ms
+ GET / [32m200[39m in 52ms
+ [32m[1m✓[22m[39m Compiled in 1852ms (1443 modules)
+ GET / [32m200[39m in 165ms
+ [32m[1m✓[22m[39m Compiled in 2.5s (1443 modules)
+ GET / [32m200[39m in 136ms
+ [32m[1m✓[22m[39m Compiled in 2.6s (1445 modules)
+ GET / [32m200[39m in 518ms
+ [32m[1m✓[22m[39m Compiled in 1633ms (1445 modules)
+ GET / [32m200[39m in 150ms
+ GET / [32m200[39m in 413ms
+ GET / [32m200[39m in 231ms
+ GET / [32m200[39m in 198ms
+ GET / [32m200[39m in 272ms
+ [32m[1m✓[22m[39m Compiled /middleware in 490ms (115 modules)
+ [37m[1m○[22m[39m Compiling /portal/login ...
+ [32m[1m✓[22m[39m Compiled /portal/login in 2.4s (1444 modules)
+ GET /portal/login [32m200[39m in 2560ms
+ GET / [32m200[39m in 339ms
+ GET / [32m200[39m in 271ms
+ GET /careers [32m200[39m in 176ms
+ GET /portal/login [32m200[39m in 36ms
+ [37m[1m○[22m[39m Compiling /api/auth/otp/send ...
+ [32m[1m✓[22m[39m Compiled /api/auth/otp/send in 5.8s (2378 modules)
+send OTP error: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (lib/mongodb.ts:37:19)
+    at async POST (app/api/auth/otp/send/route.ts:26:5)
+[0m [90m 35 |[39m
+ [90m 36 |[39m   [36mtry[39m {
+[31m[1m>[22m[39m[90m 37 |[39m     cached[33m.[39mconn [33m=[39m [36mawait[39m cached[33m.[39mpromise[33m;[39m
+ [90m    |[39m                   [31m[1m^[22m[39m
+ [90m 38 |[39m   } [36mcatch[39m (err) {
+ [90m 39 |[39m     cached[33m.[39mpromise [33m=[39m [36mnull[39m[33m;[39m
+ [90m 40 |[39m     [36mthrow[39m err[33m;[39m[0m {
+  errorLabelSet: Set(0) {},
+  reason: [36m[TopologyDescription][39m,
+  code: [90mundefined[39m,
+  [cause]: [36m[TopologyDescription][39m
+}
+ POST /api/auth/otp/send [31m500[39m in 37335ms
+ GET /portal/login [32m200[39m in 315ms
+ GET / [32m200[39m in 561ms

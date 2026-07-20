@@ -1,0 +1,10 @@
+[1G[0K⠙[1G[0K
+> surefund-financial-services@1.0.0 dev
+> next dev -p 5000
+
+[1G[0K⠙[1G[0K   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 4.8s

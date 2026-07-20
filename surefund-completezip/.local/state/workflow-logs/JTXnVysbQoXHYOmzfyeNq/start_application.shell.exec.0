@@ -1,0 +1,33 @@
+[1G[0K⠙[1G[0K
+> surefund-financial-services@1.0.0 dev
+> next dev -p 5000
+
+[1G[0K⠙[1G[0K   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 3.9s
+ [33m[1m⚠[22m[39m Found a change in next.config.js. Restarting the server to apply the changes...
+   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 2.8s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 6.5s (1469 modules)
+ GET / [32m200[39m in 7754ms
+ [33m[1m⚠[22m[39m Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ [32m[1m✓[22m[39m Compiled in 1383ms (1469 modules)
+ GET / [32m200[39m in 634ms
+ [32m[1m✓[22m[39m Compiled in 1370ms (1469 modules)
+ GET / [32m200[39m in 519ms
+[?25h
+[1G[0K⠙[1G[0K[1mnpm[22m [96mnotice[39m
+[1mnpm[22m [96mnotice[39m New [31mmajor[39m version of npm available! [31m10.8.2[39m -> [34m12.0.1[39m
+[1mnpm[22m [96mnotice[39m Changelog: [34mhttps://github.com/npm/cli/releases/tag/v12.0.1[39m
+[1mnpm[22m [96mnotice[39m To update run: [4mnpm install -g npm@12.0.1[24m
+[1mnpm[22m [96mnotice[39m
+[1G[0K⠙[1G[0K

@@ -1,0 +1,73 @@
+[1G[0K⠙[1G[0K
+> surefund-financial-services@1.0.0 dev
+> next dev -p 5000
+
+[1G[0K⠙[1G[0K   [1m[38;2;173;127;168m▲ Next.js 15.5.20[39m[22m
+   - Local:        http://localhost:5000
+   - Network:      http://172.24.0.2:5000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 4.8s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 3.7s (1413 modules)
+ GET / [32m200[39m in 4494ms
+ [33m[1m⚠[22m[39m Cross origin request detected from 17eaea79-9438-4019-951f-8d89df2f40a8-00-9yg5nu8saqhb.sisko.replit.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / [32m200[39m in 216ms
+ GET / [32m200[39m in 592ms
+ [37m[1m○[22m[39m Compiling /emi-calculator ...
+ [32m[1m✓[22m[39m Compiled /emi-calculator in 2s (1420 modules)
+ GET /emi-calculator [32m200[39m in 2255ms
+ GET / [32m200[39m in 38ms
+ [32m[1m✓[22m[39m Compiled /personal-loan in 444ms (1428 modules)
+ GET /personal-loan [32m200[39m in 749ms
+ [37m[1m○[22m[39m Compiling /apply/[productType] ...
+ [32m[1m✓[22m[39m Compiled /apply/[productType] in 512ms (1470 modules)
+ GET /apply/personal-loan [32m200[39m in 3321ms
+ GET / [32m200[39m in 76ms
+ GET /personal-loan [32m200[39m in 283ms
+ GET / [32m200[39m in 261ms
+ GET / [32m200[39m in 404ms
+ GET /emi-calculator [32m200[39m in 492ms
+ GET / [32m200[39m in 42ms
+ [37m[1m○[22m[39m Compiling /middleware ...
+ [32m[1m✓[22m[39m Compiled /middleware in 2.5s (115 modules)
+ [37m[1m○[22m[39m Compiling /admin/login ...
+ [32m[1m✓[22m[39m Compiled /admin/login in 2.3s (1485 modules)
+ GET /admin/login [32m200[39m in 2675ms
+ [37m[1m○[22m[39m Compiling /api/admin/login ...
+ [32m[1m✓[22m[39m Compiled /api/admin/login in 2.6s (1597 modules)
+admin login error: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (lib/mongodb.ts:37:19)
+    at async POST (app/api/admin/login/route.ts:25:5)
+[0m [90m 35 |[39m
+ [90m 36 |[39m   [36mtry[39m {
+[31m[1m>[22m[39m[90m 37 |[39m     cached[33m.[39mconn [33m=[39m [36mawait[39m cached[33m.[39mpromise[33m;[39m
+ [90m    |[39m                   [31m[1m^[22m[39m
+ [90m 38 |[39m   } [36mcatch[39m (err) {
+ [90m 39 |[39m     cached[33m.[39mpromise [33m=[39m [36mnull[39m[33m;[39m
+ [90m 40 |[39m     [36mthrow[39m err[33m;[39m[0m {
+  errorLabelSet: Set(0) {},
+  reason: [36m[TopologyDescription][39m,
+  code: [90mundefined[39m,
+  [cause]: [36m[TopologyDescription][39m
+}
+ POST /api/admin/login [31m500[39m in 34338ms
+admin login error: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (lib/mongodb.ts:37:19)
+    at async POST (app/api/admin/login/route.ts:25:5)
+[0m [90m 35 |[39m
+ [90m 36 |[39m   [36mtry[39m {
+[31m[1m>[22m[39m[90m 37 |[39m     cached[33m.[39mconn [33m=[39m [36mawait[39m cached[33m.[39mpromise[33m;[39m
+ [90m    |[39m                   [31m[1m^[22m[39m
+ [90m 38 |[39m   } [36mcatch[39m (err) {
+ [90m 39 |[39m     cached[33m.[39mpromise [33m=[39m [36mnull[39m[33m;[39m
+ [90m 40 |[39m     [36mthrow[39m err[33m;[39m[0m {
+  errorLabelSet: Set(0) {},
+  reason: [36m[TopologyDescription][39m,
+  code: [90mundefined[39m,
+  [cause]: [36m[TopologyDescription][39m
+}
+ POST /api/admin/login [31m500[39m in 30113ms
