@@ -63,8 +63,8 @@ export default function TrustAndStats() {
 
   return (
     <>
-      <section className="border-y border-primary/5 bg-white py-12">
-        <p className="mb-8 text-center text-sm font-medium uppercase tracking-wide text-primary/40">
+      <section className="border-y border-white/10 py-12">
+        <p className="mb-8 text-center text-sm font-medium uppercase tracking-wide text-white/40">
           Trusted Banking &amp; NBFC Partners
         </p>
         <div className="relative overflow-hidden">
@@ -72,7 +72,7 @@ export default function TrustAndStats() {
             {loopPartners.map((name, i) => (
               <span
                 key={`${name}-${i}`}
-                className="whitespace-nowrap text-xl font-heading font-semibold text-primary/30"
+                className="whitespace-nowrap text-xl font-heading font-semibold text-white/30"
               >
                 {name}
               </span>
@@ -81,7 +81,7 @@ export default function TrustAndStats() {
         </div>
       </section>
 
-      <section className="bg-gradient-hero py-16 text-white">
+      <section className="py-16 text-white">
         <div className="section !py-0 grid grid-cols-2 gap-8 md:grid-cols-4">
           {stats.map((s, i) => (
             <motion.div

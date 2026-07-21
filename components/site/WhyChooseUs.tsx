@@ -72,11 +72,9 @@ const cardVariants = {
 
 export default function WhyChooseUs() {
   return (
-    <section className="relative overflow-hidden bg-primary py-24">
+    <section className="relative overflow-hidden py-24">
       {/* Ambient background orbs */}
-      <div className="pointer-events-none absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-secondary/20 blur-[130px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-accent/10 blur-[130px]" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/10 blur-[80px]" />
+      
 
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
         {/* Heading */}

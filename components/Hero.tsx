@@ -23,24 +23,9 @@ const trustBadges = ["No Hidden Fees", "100% Paperless", "24-hr Approval"];
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero text-white">
+    <section className="relative overflow-hidden text-white">
       {/* === Animated floating orbs === */}
-      <motion.div
-        variants={floatVariants}
-        animate="animate"
-        className="pointer-events-none absolute -left-28 -top-28 h-[500px] w-[500px] rounded-full bg-secondary/35 blur-[100px]"
-      />
-      <motion.div
-        variants={floatVariantsSlow}
-        animate="animate"
-        className="pointer-events-none absolute -right-28 top-32 h-[420px] w-[420px] rounded-full bg-accent/18 blur-[100px]"
-      />
-      <motion.div
-        variants={floatVariants}
-        animate="animate"
-        style={{ animationDelay: "3s" }}
-        className="pointer-events-none absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-secondary/20 blur-[80px]"
-      />
+      
 
       {/* Subtle grid overlay */}
       <div
@@ -131,7 +116,6 @@ export default function Hero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/30 to-transparent" />
     </section>
   );
 }

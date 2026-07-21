@@ -22,9 +22,9 @@ const allBanks = [...banks, ...banks];
 
 export default function BankPartners() {
   return (
-    <section className="relative overflow-hidden bg-background py-16">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+    <section className="relative overflow-hidden py-16">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <motion.div
@@ -34,14 +34,14 @@ export default function BankPartners() {
           transition={{ duration: 0.55 }}
           className="mb-10 text-center"
         >
-          <span className="mb-2 inline-block rounded-full bg-secondary/8 px-4 py-1.5 text-sm font-semibold text-secondary">
+          <span className="mb-2 inline-block rounded-full bg-accent/15 px-4 py-1.5 text-sm font-semibold text-accent">
             Our Banking Partners
           </span>
-          <h2 className="mt-3 text-2xl font-bold text-primary md:text-3xl">
+          <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">
             Loans Powered by India&apos;s{" "}
-            <span className="text-secondary">Top Lenders</span>
+            <span className="text-accent">Top Lenders</span>
           </h2>
-          <p className="mx-auto mt-2 max-w-lg text-sm text-primary/55">
+          <p className="mx-auto mt-2 max-w-lg text-sm text-white/55">
             We work exclusively with RBI-regulated banks &amp; NBFCs to secure
             the best rates and terms for you.
           </p>
@@ -51,15 +51,15 @@ export default function BankPartners() {
       {/* Full-bleed marquee */}
       <div className="relative">
         {/* Fade edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-primary to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-primary to-transparent" />
 
         <div className="flex overflow-hidden">
           <div className="flex animate-marquee items-center gap-5 pr-5 [animation-play-state:running] hover:[animation-play-state:paused]">
             {allBanks.map((bank, i) => (
               <div
                 key={`${bank.abbr}-${i}`}
-                className="flex min-w-[150px] flex-col items-center gap-3 rounded-2xl border border-primary/8 bg-white px-5 py-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-secondary/25 hover:shadow-glow"
+                className="flex min-w-[150px] flex-col items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-5 py-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-glow"
               >
                 {/* Brand-coloured logo badge */}
                 <div
@@ -68,7 +68,7 @@ export default function BankPartners() {
                 >
                   {bank.abbr}
                 </div>
-                <span className="text-center text-xs font-semibold leading-tight text-primary/65">
+                <span className="text-center text-xs font-semibold leading-tight text-white/65">
                   {bank.name}
                 </span>
               </div>

@@ -13,7 +13,7 @@ export default function HomeFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-white py-20">
+    <section className="py-20">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
           {/* Left — heading */}
@@ -24,13 +24,13 @@ export default function HomeFaq() {
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             className="lg:w-80 lg:shrink-0"
           >
-            <span className="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1.5 text-sm font-semibold text-primary">
+            <span className="mb-3 inline-block rounded-full bg-accent/15 px-4 py-1.5 text-sm font-semibold text-accent">
               FAQ
             </span>
-            <h2 className="text-3xl font-bold text-primary md:text-4xl">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">
               Frequently Asked Questions
             </h2>
-            <p className="mt-4 text-primary/60 leading-relaxed">
+            <p className="mt-4 text-white/60 leading-relaxed">
               Have more questions? We're here to help you every step of the way.
             </p>
             <Link
@@ -54,16 +54,16 @@ export default function HomeFaq() {
               return (
                 <div
                   key={item.question}
-                  className="overflow-hidden rounded-2xl border border-primary/8 bg-background transition-shadow hover:shadow-card"
+                  className="overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl transition-shadow hover:shadow-glow"
                 >
                   <button
                     onClick={() => setOpenIndex(open ? null : i)}
                     className="flex w-full items-center justify-between px-6 py-4 text-left"
                   >
-                    <span className="font-medium text-primary">{item.question}</span>
+                    <span className="font-medium text-white">{item.question}</span>
                     <ChevronDown
                       size={18}
-                      className={`ml-4 shrink-0 text-secondary transition-transform duration-300 ${
+                      className={`ml-4 shrink-0 text-accent transition-transform duration-300 ${
                         open ? "rotate-180" : ""
                       }`}
                     />
@@ -75,7 +75,7 @@ export default function HomeFaq() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <div className="border-t border-primary/5 px-6 py-4 text-sm leading-relaxed text-primary/65">
+                      <div className="border-t border-white/10 px-6 py-4 text-sm leading-relaxed text-white/65">
                         {item.answer}
                       </div>
                     </div>

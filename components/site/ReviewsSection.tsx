@@ -62,7 +62,7 @@ function StarRow({ rating }: { rating: number }) {
         <Star
           key={i}
           size={14}
-          className={i < rating ? "fill-accent text-accent" : "fill-primary/10 text-primary/10"}
+          className={i < rating ? "fill-accent text-accent" : "fill-white/10 text-white/10"}
         />
       ))}
     </div>
@@ -105,26 +105,26 @@ function ReviewsCarousel() {
                   <button
                     type="button"
                     onClick={() => selectSlide(index)}
-                    className="relative flex h-[460px] w-full flex-col overflow-hidden rounded-3xl border border-white/60 bg-white p-6 text-left shadow-2xl"
+                    className="relative flex h-[460px] w-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-6 text-left shadow-2xl backdrop-blur-xl"
                   >
-                    <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-secondary/15 blur-2xl" />
+                    <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-accent/15 blur-2xl" />
                     <div className="flex items-start gap-3">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-hero text-sm font-bold text-white">
                         {r.initials}
                       </div>
                       <div>
-                        <p className="font-semibold leading-tight text-primary">{r.name}</p>
-                        <p className="text-xs text-primary/50">{r.city}</p>
+                        <p className="font-semibold leading-tight text-white">{r.name}</p>
+                        <p className="text-xs text-white/50">{r.city}</p>
                       </div>
                     </div>
-                    <span className="mt-3 w-fit rounded-full bg-secondary/10 px-2.5 py-0.5 text-xs font-medium text-secondary">
+                    <span className="mt-3 w-fit rounded-full bg-accent/15 px-2.5 py-0.5 text-xs font-medium text-accent">
                       {r.product}
                     </span>
                     <div className="mt-3">
                       <StarRow rating={r.rating} />
                     </div>
                     <motion.p
-                      className="mt-3 flex-1 overflow-hidden text-sm leading-relaxed text-primary/70"
+                      className="mt-3 flex-1 overflow-hidden text-sm leading-relaxed text-white/70"
                       animate={{ opacity: isActive ? 1 : 0.35 }}
                       transition={{ duration: 0.4 }}
                     >
@@ -139,11 +139,11 @@ function ReviewsCarousel() {
       </div>
 
       {/* Controls */}
-      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto flex w-fit items-center justify-center gap-3 rounded-full border border-primary/10 bg-white/90 px-2 py-1 shadow-sm">
+      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto flex w-fit items-center justify-center gap-3 rounded-full border border-white/15 bg-white/10 px-2 py-1 shadow-sm backdrop-blur-xl">
         <button
           type="button"
           aria-label="Previous review"
-          className="inline-flex size-9 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary/5"
+          className="inline-flex size-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10"
           onClick={() => selectSlide(currentIndex - 1)}
         >
           <ChevronLeft className="size-5" />
@@ -155,7 +155,7 @@ function ReviewsCarousel() {
               key={index}
               type="button"
               aria-label={`Show review ${index + 1}`}
-              className={`h-2 rounded-full bg-secondary transition-[width,opacity] duration-300 ${
+              className={`h-2 rounded-full bg-accent transition-[width,opacity] duration-300 ${
                 currentIndex === index ? "w-6 opacity-100" : "w-2 opacity-30"
               }`}
               onClick={() => selectSlide(index)}
@@ -166,7 +166,7 @@ function ReviewsCarousel() {
         <button
           type="button"
           aria-label="Next review"
-          className="inline-flex size-9 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary/5"
+          className="inline-flex size-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10"
           onClick={() => selectSlide(currentIndex + 1)}
         >
           <ChevronRight className="size-5" />
@@ -178,9 +178,8 @@ function ReviewsCarousel() {
 
 export default function ReviewsSection() {
   return (
-    <section className="bg-background py-20">
+    <section className="py-20">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
-        {/* Heading */}
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, scale: 0.75 }}
@@ -189,11 +188,11 @@ export default function ReviewsSection() {
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="mb-12 text-center"
         >
-          <span className="mb-3 inline-block rounded-full bg-secondary/10 px-4 py-1.5 text-sm font-semibold text-secondary">
+          <span className="mb-3 inline-block rounded-full bg-accent/15 px-4 py-1.5 text-sm font-semibold text-accent">
             Customer Reviews
           </span>
-          <h2 className="text-3xl font-bold text-primary md:text-4xl">What Our Customers Say</h2>
-          <p className="mt-3 text-primary/60">Over 5,000 happy borrowers across Uttar Pradesh trust SureFund.</p>
+          <h2 className="text-3xl font-bold text-white md:text-4xl">What Our Customers Say</h2>
+          <p className="mt-3 text-white/60">Over 5,000 happy borrowers across Uttar Pradesh trust SureFund.</p>
         </motion.div>
 
         <ReviewsCarousel />
@@ -203,7 +202,7 @@ export default function ReviewsSection() {
           initial={{ y: 16 }}
           whileInView={{ y: 0 }}
           viewport={{ once: false, amount: 0.1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 1.1, delay: 0.2 }}
           className="mt-4 flex flex-col items-center gap-2"
         >
           <div className="flex gap-1">
@@ -211,8 +210,8 @@ export default function ReviewsSection() {
               <Star key={i} size={22} className="fill-accent text-accent" />
             ))}
           </div>
-          <p className="text-sm text-primary/60">
-            <span className="font-semibold text-primary">4.9 / 5</span> average rating from 5,000+ customers
+          <p className="text-sm text-white/60">
+            <span className="font-semibold text-white">4.9 / 5</span> average rating from 5,000+ customers
           </p>
         </motion.div>
       </div>
