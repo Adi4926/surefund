@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Menu, X, Phone, UserCircle2 } from "lucide-react";
@@ -50,11 +49,15 @@ export default function Navbar() {
       <header className="sticky top-4 z-50 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between gap-4">
           
-          {/* 1. Left: Logo & Company Name */}
-          <Link href="/" className="hidden lg:flex shrink-0 items-center gap-2.5 px-3 py-2 transition-opacity hover:opacity-80">
-            <Image src="/logo.svg" alt="SureFund Logo" width={32} height={32} priority />
-            <span className="font-heading text-lg font-bold text-white">
-              Sure<span className="text-accent">Fund</span>
+          {/* 1. Left: Text Logo (Center Aligned properly) */}
+          <Link href="/" className="hidden lg:flex flex-col items-center px-2 py-1 transition-opacity hover:opacity-90">
+            <div className="flex items-baseline font-extrabold tracking-tight text-xl leading-none">
+              <span className="text-white">sure</span>
+              <span className="text-indigo-500">fund</span>
+              <span className="text-gray-400 text-xs font-semibold ml-0.5">.in</span>
+            </div>
+            <span className="text-[8px] font-bold tracking-[0.25em] text-white/70 uppercase mt-1 text-center w-full">
+              Financial Services
             </span>
           </Link>
 
@@ -62,14 +65,15 @@ export default function Navbar() {
           <div className="relative flex-1 lg:flex-none flex items-center justify-between lg:justify-center rounded-full border border-white/15 bg-white/10 p-1.5 shadow-2xl backdrop-blur-2xl">
             
             {/* Mobile Logo inside pill container */}
-            <Link href="/" className="flex lg:hidden shrink-0 items-center gap-2 px-3">
-              <Image src="/logo.svg" alt="SureFund Logo" width={28} height={28} priority />
-              <span className="font-heading text-sm font-bold text-white">
-                Sure<span className="text-accent">Fund</span>
-              </span>
+            <Link href="/" className="flex lg:hidden flex-col items-start px-3 py-1">
+              <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
+                <span className="text-white">sure</span>
+                <span className="text-indigo-500">fund</span>
+                <span className="text-gray-400 text-[10px] ml-0.5">.in</span>
+              </div>
             </Link>
 
-            {/* Desktop Links with Framer Motion LayoutId for Liquid Glass Effect */}
+            {/* Desktop Links with Framer Motion LayoutId */}
             <nav className="hidden items-center gap-1 lg:flex">
               {links.map((link) => {
                 const isActive = pathname === link.href;
