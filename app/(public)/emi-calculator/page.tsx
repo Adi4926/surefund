@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Calculator } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function EmiCalculatorPage() {
   const [amount, setAmount] = useState(500000);
@@ -30,23 +31,39 @@ export default function EmiCalculatorPage() {
   }, [amount, rate, tenure]);
 
   return (
-    <main className="section">
-      <div className="mx-auto mb-10 max-w-2xl text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
-          <Calculator size={24} />
+    <div className="relative min-h-screen overflow-hidden pt-32 pb-20 font-sans text-white">
+      
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="mx-auto mb-16 max-w-2xl text-center px-4"
+      >
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-accent backdrop-blur-xl shadow-[0_0_20px_rgba(124,58,237,0.2)]">
+          <Calculator size={32} />
         </div>
-        <h1 className="text-3xl font-bold text-primary md:text-4xl">EMI Calculator</h1>
-        <p className="mt-3 text-primary/60">
+        <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+          EMI <span className="text-accent">Calculator</span>
+        </h1>
+        <p className="mt-4 text-lg text-white/60">
           Estimate your monthly installment before you apply.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
-        <div className="glass-card space-y-6 p-8">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 sm:px-6 lg:px-8 md:grid-cols-2">
+        
+        {/* --- LEFT CARD: INPUT SLIDERS --- */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="space-y-10 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl sm:p-10"
+        >
+          {/* Amount Slider */}
           <div>
-            <div className="mb-1 flex justify-between text-sm">
-              <span className="text-primary/60">Loan Amount</span>
-              <span className="font-semibold text-primary">
+            <div className="mb-4 flex items-end justify-between">
+              <span className="text-sm font-medium text-white/60">Loan Amount</span>
+              <span className="text-2xl font-bold text-white">
                 ₹{amount.toLocaleString("en-IN")}
               </span>
             </div>
@@ -57,14 +74,19 @@ export default function EmiCalculatorPage() {
               step={10000}
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
-              className="w-full accent-secondary"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
             />
+            <div className="mt-2 flex justify-between text-xs text-white/40">
+              <span>₹50K</span>
+              <span>₹50L</span>
+            </div>
           </div>
 
+          {/* Interest Rate Slider */}
           <div>
-            <div className="mb-1 flex justify-between text-sm">
-              <span className="text-primary/60">Interest Rate (p.a.)</span>
-              <span className="font-semibold text-primary">{rate}%</span>
+            <div className="mb-4 flex items-end justify-between">
+              <span className="text-sm font-medium text-white/60">Interest Rate (p.a.)</span>
+              <span className="text-2xl font-bold text-white">{rate}%</span>
             </div>
             <input
               type="range"
@@ -73,14 +95,19 @@ export default function EmiCalculatorPage() {
               step={0.1}
               value={rate}
               onChange={(e) => setRate(Number(e.target.value))}
-              className="w-full accent-secondary"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
             />
+            <div className="mt-2 flex justify-between text-xs text-white/40">
+              <span>5%</span>
+              <span>24%</span>
+            </div>
           </div>
 
+          {/* Tenure Slider */}
           <div>
-            <div className="mb-1 flex justify-between text-sm">
-              <span className="text-primary/60">Tenure (months)</span>
-              <span className="font-semibold text-primary">{tenure} months</span>
+            <div className="mb-4 flex items-end justify-between">
+              <span className="text-sm font-medium text-white/60">Tenure</span>
+              <span className="text-2xl font-bold text-white">{tenure} <span className="text-lg font-normal text-white/60">months</span></span>
             </div>
             <input
               type="range"
@@ -89,49 +116,68 @@ export default function EmiCalculatorPage() {
               step={1}
               value={tenure}
               onChange={(e) => setTenure(Number(e.target.value))}
-              className="w-full accent-secondary"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
             />
+            <div className="mt-2 flex justify-between text-xs text-white/40">
+              <span>6 mos</span>
+              <span>84 mos</span>
+            </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="glass-dark flex flex-col justify-center p-8 text-white">
-          <p className="text-sm text-white/60">Your Estimated Monthly EMI</p>
-          <p className="mt-2 text-4xl font-bold text-accent">
-            ₹
-            {emi.toLocaleString("en-IN", {
-              maximumFractionDigits: 0,
-            })}
-          </p>
+        {/* --- RIGHT CARD: RESULT --- */}
+        <motion.div 
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-col justify-center rounded-3xl border border-accent/20 bg-accent/10 p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(124,58,237,0.15)] sm:p-10"
+        >
+          <div className="text-center md:text-left">
+            <p className="text-sm font-medium text-accent">Your Estimated Monthly EMI</p>
+            <p className="mt-2 text-5xl font-bold text-white drop-shadow-md">
+              ₹{emi.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+            </p>
+          </div>
 
-          <div className="mt-6 space-y-3 border-t border-white/10 pt-6 text-sm">
+          <div className="mt-10 space-y-5 border-t border-white/10 pt-8 text-sm">
             <div className="flex justify-between">
               <span className="text-white/60">Principal Amount</span>
-              <span className="font-medium">₹{amount.toLocaleString("en-IN")}</span>
+              <span className="font-semibold text-white text-base">₹{amount.toLocaleString("en-IN")}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-white/60">Total Interest</span>
-              <span className="font-medium">
+              <span className="font-semibold text-white text-base">
                 ₹{totalInterest.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
               </span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-white/60">Total Payment</span>
-              <span className="font-medium">
+            <div className="flex justify-between border-t border-white/5 pt-5">
+              <span className="text-white/80 font-medium">Total Payment</span>
+              <span className="font-bold text-accent text-lg">
                 ₹{totalPayment.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
 
-          <a href="/personal-loan" className="btn-accent mt-8 justify-center">
+          <a 
+            href="/personal-loan" 
+            className="mt-10 block w-full rounded-full bg-accent py-4 text-center font-bold text-white shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-1 hover:bg-accent/90 hover:shadow-[0_0_30px_rgba(124,58,237,0.6)]"
+          >
             Apply for This Amount
           </a>
-        </div>
+        </motion.div>
+
       </div>
 
-      <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-primary/40">
+      <motion.p 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="mx-auto mt-10 max-w-2xl px-4 text-center text-xs text-white/30"
+      >
         This calculator is for illustration only. Actual EMI, interest rate, and
         tenure depend on the lender's assessment of your profile.
-      </p>
-    </main>
+      </motion.p>
+      
+    </div>
   );
 }

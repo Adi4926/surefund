@@ -12,7 +12,7 @@ export default function HomePage() {
     <main className="relative">
       <LightRays
         raysOrigin="top-center"
-        raysColor="#7C3AED"
+        raysColor="#a78bfa"
         raysSpeed={1.2}
         lightSpread={1.4}
         rayLength={2.2}
