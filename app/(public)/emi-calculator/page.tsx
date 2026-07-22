@@ -1,13 +1,34 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Calculator } from "lucide-react";
+import { Calculator, User, Briefcase, CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
 
+const loanTypes = [
+  { label: "Personal Loan", icon: User, defaultRate: 9.9 },
+  { label: "Business Loan", icon: Briefcase, defaultRate: 14 },
+  
+];
+
+const tenureOptions = [
+  { label: "1 yr", months: 12 },
+  { label: "2 yr", months: 24 },
+  { label: "3 yr", months: 36 },
+  { label: "4 yr", months: 48 },
+  { label: "5 yr", months: 60 },
+  { label: "7 yr", months: 84 },
+];
+
 export default function EmiCalculatorPage() {
+  const [loanTypeIndex, setLoanTypeIndex] = useState(0);
   const [amount, setAmount] = useState(500000);
-  const [rate, setRate] = useState(11);
+  const [rate, setRate] = useState(loanTypes[0].defaultRate);
   const [tenure, setTenure] = useState(36); // months
+
+  function selectLoanType(i: number) {
+    setLoanTypeIndex(i);
+    setRate(loanTypes[i].defaultRate);
+  }
 
   const { emi, totalInterest, totalPayment } = useMemo(() => {
     const monthlyRate = rate / 12 / 100;
@@ -32,12 +53,12 @@ export default function EmiCalculatorPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden pt-32 pb-20 font-sans text-white">
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mx-auto mb-16 max-w-2xl text-center px-4"
+        className="mx-auto mb-10 max-w-2xl text-center px-4"
       >
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-accent backdrop-blur-xl shadow-[0_0_20px_rgba(124,58,237,0.2)]">
           <Calculator size={32} />
@@ -50,10 +71,36 @@ export default function EmiCalculatorPage() {
         </p>
       </motion.div>
 
+      {/* --- LOAN TYPE TABS --- */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.05 }}
+        className="mx-auto mb-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 px-4"
+      >
+        {loanTypes.map((type, i) => {
+          const active = loanTypeIndex === i;
+          return (
+            <button
+              key={type.label}
+              onClick={() => selectLoanType(i)}
+              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                active
+                  ? "border-accent bg-accent text-white shadow-[0_0_20px_rgba(124,58,237,0.4)]"
+                  : "border-white/15 bg-white/5 text-white/60 hover:border-white/25 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <type.icon size={16} />
+              {type.label}
+            </button>
+          );
+        })}
+      </motion.div>
+
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 sm:px-6 lg:px-8 md:grid-cols-2">
-        
-        {/* --- LEFT CARD: INPUT SLIDERS --- */}
-        <motion.div 
+
+        {/* --- LEFT CARD: INPUTS --- */}
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -103,30 +150,37 @@ export default function EmiCalculatorPage() {
             </div>
           </div>
 
-          {/* Tenure Slider */}
+          {/* Tenure — clickable pills */}
           <div>
             <div className="mb-4 flex items-end justify-between">
               <span className="text-sm font-medium text-white/60">Tenure</span>
-              <span className="text-2xl font-bold text-white">{tenure} <span className="text-lg font-normal text-white/60">months</span></span>
+              <span className="text-2xl font-bold text-white">
+                {tenure} <span className="text-lg font-normal text-white/60">months</span>
+              </span>
             </div>
-            <input
-              type="range"
-              min={6}
-              max={84}
-              step={1}
-              value={tenure}
-              onChange={(e) => setTenure(Number(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
-            />
-            <div className="mt-2 flex justify-between text-xs text-white/40">
-              <span>6 mos</span>
-              <span>84 mos</span>
+            <div className="flex flex-wrap gap-2">
+              {tenureOptions.map((opt) => {
+                const active = tenure === opt.months;
+                return (
+                  <button
+                    key={opt.months}
+                    onClick={() => setTenure(opt.months)}
+                    className={`rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+                      active
+                        ? "border-accent bg-accent text-white"
+                        : "border-white/15 bg-white/5 text-white/60 hover:border-white/25 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </motion.div>
 
         {/* --- RIGHT CARD: RESULT --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -158,8 +212,8 @@ export default function EmiCalculatorPage() {
             </div>
           </div>
 
-          <a 
-            href="/personal-loan" 
+          <a
+            href="/personal-loan"
             className="mt-10 block w-full rounded-full bg-accent py-4 text-center font-bold text-white shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-1 hover:bg-accent/90 hover:shadow-[0_0_30px_rgba(124,58,237,0.6)]"
           >
             Apply for This Amount
@@ -168,7 +222,7 @@ export default function EmiCalculatorPage() {
 
       </div>
 
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4 }}
@@ -177,7 +231,7 @@ export default function EmiCalculatorPage() {
         This calculator is for illustration only. Actual EMI, interest rate, and
         tenure depend on the lender's assessment of your profile.
       </motion.p>
-      
+
     </div>
   );
 }
