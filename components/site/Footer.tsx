@@ -5,7 +5,7 @@ const productLinks = [
   { label: "Personal Loan", href: "/personal-loan" },
   { label: "Business Loan", href: "/business-loan" },
   { label: "Credit Card", href: "/credit-card" },
-  { label: "Free CIBIL Check", href: "/#cibil-check" },
+ 
 ];
 
 const companyLinks = [

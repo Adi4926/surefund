@@ -70,7 +70,7 @@ export default function Hero() {
         {/* Subheading */}
        <p className="mt-6 max-w-2xl text-lg text-white/80">
           <TextAnimate delay={0.2}>
-            Personal Loans, Business Loans and Credit Cards with fast processing and trusted assistance backed by SureFund Financial Services, Lucknow.
+            Personal Loans, Business Loans and Credit Cards with fast processing and trusted assistance backed by SureFund Financial Services.
           </TextAnimate>
         </p>
 

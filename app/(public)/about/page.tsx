@@ -65,7 +65,7 @@ const whyChooseUs = [
   },
 ];
 
-const storyText = "Founded in Hazratganj, Lucknow, SureFund was built on a simple idea: getting a loan shouldn't be confusing or stressful. We've partnered with leading banks and NBFCs — including HDFC Bank, ICICI Bank, Axis Bank, SBI, and Bajaj Finserv — to give our customers real choice and honest advice, backed by a team that stays with you from application to disbursal.";
+const storyText = "SureFund was built on a simple idea: getting a loan shouldn't be confusing or stressful. We've partnered with leading banks and NBFCs — including HDFC Bank, ICICI Bank, Axis Bank, SBI, and Bajaj Finserv — to give our customers real choice and honest advice, backed by a team that stays with you from application to disbursal.";
 
 export default function AboutPage() {
   const letters = Array.from(storyText);
