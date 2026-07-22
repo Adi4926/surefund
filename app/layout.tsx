@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SplashScreen from "@/components/site/SplashScreen";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,6 +23,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FinancialServices",
+              name: "SureFund",
+              legalName: "SureFund Financial Services Pvt Ltd",
+              url: "https://surefund.in",
+              logo: "https://surefund.in/logo.svg",
+              description:
+                "SureFund Financial Services Pvt Ltd is a registered financial consultant in India providing personal loans, business loans, and credit cards.",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "IN",
+              },
+            }),
+          }}
+        />
         <SplashScreen />
         {children}
       </body>
