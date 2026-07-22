@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SplashScreen from "@/components/site/SplashScreen";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SplashScreen />
+        {children}
+      </body>
     </html>
   );
 }
