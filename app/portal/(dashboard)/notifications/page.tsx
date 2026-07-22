@@ -1,42 +1,47 @@
-import { Bell } from "lucide-react";
-import { requireCustomer } from "@/lib/requireCustomer";
-import { connectDB } from "@/lib/mongodb";
-import Notification from "@/models/Notification";
-import NotificationItem from "@/components/portal/NotificationItem";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default async function NotificationsPage() {
-  const auth = await requireCustomer();
-  await connectDB();
+export default function NotificationsPage() {
+  const [notifications, setNotifications] = useState([]);
+  const router = useRouter();
 
-  const notifications = await Notification.find({ customer: auth.id })
-    .sort({ createdAt: -1 })
-    .limit(100)
-    .lean() as any;
+  useEffect(() => {
+    // 1. Notifications fetch karein
+    fetch("/api/customer/notifications")
+      .then((res) => res.json())
+      .then((data) => setNotifications(data.notifications || []))
+      .catch(() => {});
+
+    // 2. Jaise hi page khule, sabhi unread notifications ko read mark kar dein taaki count 0 ho jaye
+    fetch("/api/customer/notifications/mark-read", { method: "POST" })
+      .then(() => {
+        // Sidebar ka count turant update karne ke liye router refresh karein
+        router.refresh();
+      })
+      .catch(() => {});
+  }, [router]);
 
   return (
     <div className="max-w-2xl space-y-6">
-      <div className="flex items-center gap-2">
-        <Bell className="text-accent" size={22} />
+      <div>
         <h1 className="text-2xl font-bold text-primary">Notifications</h1>
+        <p className="mt-1 text-sm text-primary/50">
+          Stay updated with your loan application statuses.
+        </p>
       </div>
 
       <div className="space-y-3">
-        {notifications.map((n: any) => (
-          <NotificationItem
-            key={n._id}
-            id={String(n._id)}
-            title={n.title}
-            message={n.message}
-            read={n.read}
-            createdAt={String(n.createdAt)}
-          />
-        ))}
-        {notifications.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-primary/15 bg-white p-12 text-center">
-            <p className="text-sm text-primary/40">You have no notifications yet.</p>
-          </div>
+        {notifications.length === 0 ? (
+          <p className="text-sm text-primary/50">No notifications found.</p>
+        ) : (
+          notifications.map((notif: any, i) => (
+            <div key={i} className="rounded-2xl border border-primary/5 bg-white p-5 shadow-sm">
+              <p className="text-sm font-semibold text-primary">{notif.title}</p>
+              <p className="mt-1 text-xs text-primary/70">{notif.message}</p>
+            </div>
+          ))
         )}
       </div>
     </div>

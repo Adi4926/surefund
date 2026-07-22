@@ -25,7 +25,8 @@ export default function ProfileForm({ initialData }: { initialData: ProfileData 
     setError("");
     setMessage("");
     try {
-      const { mobile, ...updatable } = form;
+      // Ab email ko chhod kar baaki sara form data (mobile sahit) update ke liye bheja jayega
+      const { email, ...updatable } = form;
       const res = await fetch("/api/customer/me", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -47,14 +48,18 @@ export default function ProfileForm({ initialData }: { initialData: ProfileData 
       onSubmit={handleSubmit}
       className="space-y-4 rounded-2xl border border-primary/5 bg-white p-6 shadow-card"
     >
+      {/* Mobile Number - Ab Changeable (Editable) hai */}
       <div>
         <label className="mb-1 block text-xs font-medium text-primary/50">
-          Mobile Number (login ID — cannot be changed)
+          Mobile Number
         </label>
         <input
-          disabled
+          type="tel"
+          required
           value={form.mobile}
-          className="w-full cursor-not-allowed rounded-lg border border-primary/10 bg-background px-4 py-2.5 text-primary/50"
+          onChange={(e) => setForm({ ...form, mobile: e.target.value })}
+          className="w-full rounded-lg border border-primary/10 px-4 py-2.5 outline-none focus:border-secondary"
+          placeholder="Enter mobile number"
         />
       </div>
 
@@ -68,13 +73,16 @@ export default function ProfileForm({ initialData }: { initialData: ProfileData 
         />
       </div>
 
+      {/* Email - Ab Unchangeable (Disabled/Locked) hai */}
       <div>
-        <label className="mb-1 block text-xs font-medium text-primary/50">Email</label>
+        <label className="mb-1 block text-xs font-medium text-primary/50">
+          Email (Cannot be changed)
+        </label>
         <input
           type="email"
+          disabled
           value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="w-full rounded-lg border border-primary/10 px-4 py-2.5 outline-none focus:border-secondary"
+          className="w-full cursor-not-allowed rounded-lg border border-primary/10 bg-background px-4 py-2.5 text-primary/50"
         />
       </div>
 
