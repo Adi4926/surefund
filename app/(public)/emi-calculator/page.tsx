@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Calculator, User, Briefcase, CreditCard } from "lucide-react";
+import { Calculator, User, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const loanTypes = [
-  { label: "Personal Loan", icon: User, defaultRate: 9.9 },
-  { label: "Business Loan", icon: Briefcase, defaultRate: 14 },
-  
+  { label: "Personal Loan", icon: User, defaultRate: 9.9, slug: "personal-loan" },
+  { label: "Business Loan", icon: Briefcase, defaultRate: 14, slug: "business-loan" },
 ];
 
 const tenureOptions = [
@@ -50,6 +50,9 @@ export default function EmiCalculatorPage() {
       totalPayment: total,
     };
   }, [amount, rate, tenure]);
+
+  // Determine current selected loan route slug
+  const currentLoanSlug = loanTypes[loanTypeIndex].slug;
 
   return (
     <div className="relative min-h-screen overflow-hidden pt-32 pb-20 font-sans text-white">
@@ -212,12 +215,13 @@ export default function EmiCalculatorPage() {
             </div>
           </div>
 
-          <a
-            href="/personal-loan"
+          {/* Dynamic Link matching selected loan tab */}
+          <Link
+            href={`/apply/${currentLoanSlug}`}
             className="mt-10 block w-full rounded-full bg-accent py-4 text-center font-bold text-white shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-1 hover:bg-accent/90 hover:shadow-[0_0_30px_rgba(124,58,237,0.6)]"
           >
             Apply for This Amount
-          </a>
+          </Link>
         </motion.div>
 
       </div>
@@ -229,7 +233,7 @@ export default function EmiCalculatorPage() {
         className="mx-auto mt-10 max-w-2xl px-4 text-center text-xs text-white/30"
       >
         This calculator is for illustration only. Actual EMI, interest rate, and
-        tenure depend on the lender's assessment of your profile.
+        tenure depend on the lender&apos;s assessment of your profile.
       </motion.p>
 
     </div>
