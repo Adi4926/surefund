@@ -142,7 +142,7 @@ export default function CareersPage() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg md:text-xl text-white/70 leading-relaxed">
           Help us make financial services simpler and fairer for people across
-          Uttar Pradesh. We're looking for driven individuals who love solving
+          India. We're looking for driven individuals who love solving
           real problems.
         </p>
       </motion.section>
@@ -152,7 +152,7 @@ export default function CareersPage() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {[
             { title: "Growth-First Culture", desc: "Clear career paths and mentorship from day one." },
-            { title: "Lucknow HQ", desc: "Work from our modern Hazratganj office or remotely for tech roles." },
+            { title: "Lucknow HQ", desc: "Work from our modern office or remotely for tech roles." },
             { title: "Impact at Scale", desc: "Your work directly helps thousands of families access credit." },
           ].map((item, i) => (
             <motion.div 

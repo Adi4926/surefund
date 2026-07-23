@@ -8,7 +8,7 @@ const contactDetails = [
   {
     icon: MapPin,
     title: "Office Address",
-    value: "2nd Floor, Hazratganj, Lucknow, Uttar Pradesh 226001, India",
+    value: "infront of croma store, 2/26, 2nd Floor, Ruchi Khand 1, Sharda Nagar, Lucknow, Uttar Pradesh 226012",
     href: null,
   },
   {
