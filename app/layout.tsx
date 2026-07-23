@@ -4,9 +4,9 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SureFund Financial Services | Funding Dreams. Building Futures.",
+  title: "SureFund Financial Services | Get instant Personal Loans, Business Loans",
   description:
-    "SureFund Financial Services — Personal Loans, Business Loans & Credit Cards with fast processing and trusted assistance. Based in Lucknow, Uttar Pradesh.",
+    "SureFund Financial Services Pvt. Ltd. — Personal Loans, Business Loans & Credit Cards with fast processing and trusted assistance. Based in Lucknow, Uttar Pradesh.",
   keywords: [
     "personal loan Lucknow",
     "business loan Lucknow",
