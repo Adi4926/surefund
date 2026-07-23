@@ -1,32 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { TextAnimate } from "@/components/site/TextAnimate";
-
-const floatVariants = {
-  animate: {
-    y: [0, -22, 0],
-    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-  },
-};
-
-const floatVariantsSlow = {
-  animate: {
-    y: [0, 14, 0],
-    transition: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
-  },
-};
 
 const trustBadges = ["No Hidden Fees", "100% Paperless", "24-hr Approval"];
 
 export default function Hero() {
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <section className="relative overflow-hidden text-white">
-      {/* === Animated floating orbs === */}
-      
-
       {/* Subtle grid overlay */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -68,7 +54,7 @@ export default function Hero() {
         </motion.h1>
 
         {/* Subheading */}
-       <p className="mt-6 max-w-2xl text-lg text-white/80">
+        <p className="mt-6 max-w-2xl text-lg text-white/80">
           <TextAnimate delay={0.2}>
             Personal Loans, Business Loans and Credit Cards with fast processing and trusted assistance backed by SureFund Financial Services.
           </TextAnimate>
@@ -81,19 +67,45 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
+          {/* Apply Now Yellow Button with Dropdown Options */}
+          <div className="relative inline-block text-left">
+            <button
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="group flex items-center gap-2 rounded-xl bg-gradient-accent px-7 py-3.5 font-bold text-primary shadow-glow-accent transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(251,191,36,0.55)]"
+            >
+              Apply Now
+              <ChevronDown size={17} className={`transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`} />
+            </button>
+
+            {/* Dropdown Menu for Loan Types */}
+            {showDropdown && (
+              <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-56 rounded-2xl border border-white/15 bg-gray-900/95 p-2 backdrop-blur-2xl shadow-2xl z-50 text-left animate-in fade-in zoom-in-95 duration-200">
+                <Link
+                  href="/apply/personal-loan"
+                  onClick={() => setShowDropdown(false)}
+                  className="block rounded-xl px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-blue-600 hover:text-white"
+                >
+                  💼 Personal Loan
+                </Link>
+                <Link
+                  href="/apply/business-loan"
+                  onClick={() => setShowDropdown(false)}
+                  className="block rounded-xl px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-blue-600 hover:text-white"
+                >
+                  🏢 Business Loan
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Explore Button -> Redirects to /services */}
           <Link
             href="/services"
-            className="group flex items-center gap-2 rounded-xl bg-gradient-accent px-7 py-3.5 font-bold text-primary shadow-glow-accent transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(251,191,36,0.55)]"
-          >
-            Apply Now
-            <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-          <a
-            href="/cibil-check"
             className="flex items-center gap-2 rounded-xl border-2 border-white/50 px-7 py-3.5 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/80 hover:bg-white/10"
           >
-            Check Eligibility
-          </a>
+            Explore
+            <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </motion.div>
 
         {/* Trust badges */}
@@ -114,8 +126,6 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
-
-      {/* Bottom fade */}
     </section>
   );
 }

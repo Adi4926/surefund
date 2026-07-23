@@ -179,9 +179,19 @@ export default function ApplyWizardPage() {
 
   return (
     <div>
+      {/* Solid White Container Layout with Dynamic Title */}
+      <div className="mb-6 text-center">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          Apply for <span className="text-blue-600">{productType}</span>
+        </h1>
+        <p className="text-sm text-gray-600 mt-1">
+          Complete the steps below to process your request smoothly.
+        </p>
+      </div>
+
       <ProgressBar currentStep={data.step} />
 
-      <div className="rounded-2xl border border-primary/5 bg-white p-6 shadow-card md:p-8">
+      <div className="rounded-2xl border border-primary/5 bg-white p-6 shadow-card md:p-8 mt-6">
         {data.step === 1 && <StepPersonalDetails data={data} onChange={updateData} />}
         {data.step === 2 && (
           <StepEmploymentDetails data={data} onChange={updateData} productType={productType} />

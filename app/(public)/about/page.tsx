@@ -89,7 +89,7 @@ export default function AboutPage() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg md:text-xl text-white/70 leading-relaxed">
           SureFund Financial Services Pvt. Ltd. is a Lucknow-based loan DSA helping
-          individuals and businesses across Uttar Pradesh access the right credit
+          individuals and businesses across all over India access the right credit
           products — quickly, transparently, and with expert support at every step.
         </p>
       </motion.section>
