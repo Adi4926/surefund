@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     "credit card DSA",
     "SureFund Financial Services",
   ],
+  alternates: {
+    canonical: "https://surefund.in",
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +41,9 @@ export default function RootLayout({
                 "SureFund Financial Services Pvt Ltd is a registered financial consultant in India providing personal loans, business loans, and credit cards.",
               address: {
                 "@type": "PostalAddress",
+                addressLocality: "Lucknow",
+                addressRegion: "Uttar Pradesh",
+                postalCode: "226012",
                 addressCountry: "IN",
               },
             }),
