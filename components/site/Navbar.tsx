@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, UserCircle2 } from "lucide-react";
 import LoginModal from "@/components/portal/LoginModal";
 
@@ -103,9 +103,13 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Mobile Menu Button */}
-            <button className="text-white lg:hidden px-3" onClick={() => setOpen(true)}>
-              <Menu size={22} />
+            {/* Mobile Menu Toggle Button (Opens & Closes on click) */}
+            <button 
+              className="text-white lg:hidden px-3 transition-transform active:scale-95" 
+              onClick={() => setOpen((prev) => !prev)}
+              aria-label="Toggle Menu"
+            >
+              {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
 
@@ -130,48 +134,58 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu Dropdown */}
-      {open && (
-        <div className="fixed inset-x-4 top-20 z-50 rounded-3xl border border-white/15 bg-slate-900/95 p-5 shadow-2xl backdrop-blur-2xl lg:hidden">
-          <div className="mb-3 flex justify-end">
-            <button onClick={() => setOpen(false)} className="text-white/70">
-              <X size={22} />
-            </button>
-          </div>
-          <nav className="flex flex-col gap-1">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                  pathname === link.href ? "bg-white/20 border border-white/30 text-white font-semibold backdrop-blur-md" : "text-white/90 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="mt-3 flex items-center gap-3 pt-3 border-t border-white/10">
-              <a
-                href="tel:+911234567890"
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20"
-              >
-                <Phone size={16} /> Call Us
-              </a>
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  handleAccountClick();
-                }}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
-              >
-                <UserCircle2 size={16} />
-                {checked ? accountLabel : "Sign In"}
+      {/* Mobile Menu Dropdown with Smooth Height & Opacity Slide */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -10 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-x-4 top-20 z-50 overflow-hidden rounded-3xl border border-white/15 bg-slate-900/95 p-5 shadow-2xl backdrop-blur-2xl lg:hidden"
+          >
+            <div className="mb-3 flex justify-end">
+              <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white">
+                <X size={22} />
               </button>
             </div>
-          </nav>
-        </div>
-      )}
+            <nav className="flex flex-col gap-1 pb-2">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                    pathname === link.href 
+                      ? "bg-white/20 border border-white/30 text-white font-semibold backdrop-blur-md" 
+                      : "text-white/90 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="mt-3 flex items-center gap-3 pt-3 border-t border-white/10">
+                <a
+                  href="tel:+911234567890"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20"
+                >
+                  <Phone size={16} /> Call Us
+                </a>
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    handleAccountClick();
+                  }}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+                >
+                  <UserCircle2 size={16} />
+                  {checked ? accountLabel : "Sign In"}
+                </button>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <LoginModal open={loginModalOpen} onClose={() => setLoginModalOpen(false)} />
     </>
