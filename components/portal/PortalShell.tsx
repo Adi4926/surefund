@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import Link from "next/link";
 import PortalSidebar from "./PortalSidebar";
 
 export default function PortalShell({
@@ -36,16 +37,37 @@ export default function PortalShell({
           <button
             className="text-primary md:hidden"
             onClick={() => setMobileOpen(true)}
+            aria-label="Open Menu"
           >
             <Menu size={24} />
           </button>
-          <span className="font-heading font-semibold text-primary md:text-lg">
+
+          {/* Mobile Only Centered Logo */}
+          <Link href="/" className="flex flex-col items-center md:hidden mx-auto transition-opacity hover:opacity-90">
+            <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
+              <span className="text-gray-900">sure</span>
+              <span className="text-indigo-600">fund</span>
+              <span className="text-gray-500 text-[10px] font-semibold ml-0.5">.in</span>
+            </div>
+            <span className="text-[6px] font-bold tracking-[0.2em] text-gray-500 uppercase mt-0.5 text-center w-full">
+              Financial Services
+            </span>
+          </Link>
+
+          {/* Desktop Welcome Text (Hidden on mobile when logo is centered, or styled nicely) */}
+          <span className="hidden font-heading font-semibold text-primary md:text-lg md:block">
             Welcome, {customerName}
           </span>
+
           <span className="hidden text-sm text-primary/40 md:block">
             SureFund Financial Services
           </span>
         </header>
+
+        {/* Optional: Welcome text for mobile view right below header or inside main content if needed */}
+        <div className="px-4 pt-4 md:hidden text-sm font-semibold text-primary">
+          Welcome, {customerName}
+        </div>
 
         <main className="p-4 md:p-8">{children}</main>
       </div>
