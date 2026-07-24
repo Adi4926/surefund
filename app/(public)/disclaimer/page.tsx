@@ -26,15 +26,6 @@ export default function DisclaimerPage() {
           </p>
         </section>
 
-        <section className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-xl shadow-xl">
-          <p className="leading-relaxed text-sm md:text-base text-white/70">
-            The free CIBIL check offered on this website is intended to give you an
-            indicative view of your credit standing and does not guarantee loan or card
-            approval. A soft inquiry does not impact your credit score; however, any
-            subsequent formal application by a lender may involve a hard inquiry as per
-            that lender's process.
-          </p>
-        </section>
 
         <section className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-xl shadow-xl">
           <p className="leading-relaxed text-sm md:text-base text-white/70">
