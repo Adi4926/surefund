@@ -49,7 +49,7 @@ export default function Navbar() {
       <header className="sticky top-4 z-50 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between gap-4">
           
-          {/* 1. Left: Text Logo (Center Aligned properly) */}
+          {/* 1. Left: Text Logo */}
           <Link href="/" className="hidden lg:flex flex-col items-center px-2 py-1 transition-opacity hover:opacity-90">
             <div className="flex items-baseline font-extrabold tracking-tight text-xl leading-none">
               <span className="text-white">sure</span>
@@ -88,8 +88,13 @@ export default function Navbar() {
                     {isActive && (
                       <motion.div
                         layoutId="liquid-pill"
+                        layout
                         className="absolute inset-0 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 35,
+                        }}
                       />
                     )}
                     <span className="relative z-10">{link.label}</span>
