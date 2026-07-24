@@ -88,7 +88,7 @@ export default function PrivacyPolicyPage() {
           <ul className="list-disc list-inside space-y-2 text-sm md:text-base text-white/70 pl-2">
             <li><strong className="text-white">Email:</strong> <span className="text-yellow-400">info@surefund.in</span></li>
             <li><strong className="text-white">Phone:</strong> <span className="text-yellow-400">+91 1234567890</span></li>
-            <li><strong className="text-white">Address:</strong> 2nd Floor, Hazratganj, Lucknow, Uttar Pradesh 226001, India</li>
+            <li><strong className="text-white">Address:</strong> 2/26, 2nd Floor, Ruchi Khand 1, Sharda Nagar, Lucknow, Uttar Pradesh 226012</li>
           </ul>
         </section>
 
