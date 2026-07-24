@@ -70,7 +70,7 @@ function StarRow({ rating }: { rating: number }) {
 }
 
 function ReviewsCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(2);
   const slideWidth = 320;
   const rotationStep = 45;
   const inactiveScale = 0.82;
