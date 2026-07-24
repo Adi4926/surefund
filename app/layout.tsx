@@ -32,7 +32,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "FinancialServices",
+              "@type": "FinancialService",
               name: "SureFund",
               legalName: "SureFund Financial Services Pvt Ltd",
               url: "https://surefund.in",
