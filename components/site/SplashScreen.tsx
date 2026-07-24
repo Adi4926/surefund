@@ -2,21 +2,34 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 const SUBHEADING = "Financial Services Pvt. Ltd.";
+const STORAGE_KEY = "surefund_splash_shown";
 
 export default function SplashScreen() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [lettersShown, setLettersShown] = useState(0);
+  const [checkedStorage, setCheckedStorage] = useState(false);
 
   useEffect(() => {
-    // Reveal subheading letter by letter
+    // Check sessionStorage first — ye sirf browser mein chalta hai, server pe nahi
+    const alreadyShown = sessionStorage.getItem(STORAGE_KEY);
+
+    if (alreadyShown) {
+      setVisible(false);
+      setCheckedStorage(true);
+      return;
+    }
+
+    // Pehli baar hai is session mein — mark kar do aur splash dikhao
+    sessionStorage.setItem(STORAGE_KEY, "true");
+    setVisible(true);
+    setCheckedStorage(true);
+
     const letterInterval = setInterval(() => {
       setLettersShown((prev) => {
         if (prev >= SUBHEADING.length) {
           clearInterval(letterInterval);
-          // Typing finished — give a brief pause to let it register, then hide
           setTimeout(() => setVisible(false), 400);
           return prev;
         }
@@ -28,6 +41,9 @@ export default function SplashScreen() {
       clearInterval(letterInterval);
     };
   }, []);
+
+  // Jab tak storage check nahi ho jata, kuch bhi render mat karo (flash avoid karne ke liye)
+  if (!checkedStorage) return null;
 
   return (
     <AnimatePresence>
