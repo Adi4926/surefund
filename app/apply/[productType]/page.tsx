@@ -43,8 +43,32 @@ export default function ApplyWizardPage() {
 
   useEffect(() => {
     if (!productType) return;
-    setData(loadDraft(slug));
-    setHydrated(true);
+    
+    const savedDraft = loadDraft(slug);
+
+    // Fetching user details from your existing /api/auth/me endpoint for autofill
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((resData) => {
+        const customer = resData?.customer;
+        if (customer && (customer.email || customer.fullName)) {
+          setData((prev) => ({
+            ...prev,
+            ...savedDraft,
+            fullName: prev.fullName || customer.fullName || "",
+            email: prev.email || customer.email || "",
+          }));
+        } else {
+          setData(savedDraft);
+        }
+      })
+      .catch(() => {
+        setData(savedDraft);
+      })
+      .finally(() => {
+        setHydrated(true);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
