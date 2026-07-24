@@ -65,13 +65,16 @@ export default function Navbar() {
           <div className="relative flex-1 lg:flex-none flex items-center justify-between lg:justify-center rounded-full border border-white/15 bg-white/10 p-1.5 shadow-2xl backdrop-blur-2xl">
             
             {/* Mobile Logo inside pill container */}
-            <Link href="/" className="flex lg:hidden flex-col items-start px-3 py-1">
-              <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
-                <span className="text-white">sure</span>
-                <span className="text-indigo-500">fund</span>
-                <span className="text-gray-400 text-[10px] ml-0.5">.in</span>
-              </div>
-            </Link>
+<Link href="/" className="flex lg:hidden flex-col items-start px-2 py-1">
+  <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
+    <span className="text-white">sure</span>
+    <span className="text-indigo-500">fund</span>
+    <span className="text-gray-400 text-[10px] font-semibold ml-0.5">.in</span>
+  </div>
+  <span className="text-[6px] font-bold tracking-[0.2em] text-white/70 uppercase mt-0.5 text-left w-full">
+    Financial Services
+  </span>
+</Link>
 
             {/* Desktop Links with Framer Motion LayoutId */}
             <nav className="hidden items-center gap-1 lg:flex">
