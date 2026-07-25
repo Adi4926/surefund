@@ -20,6 +20,7 @@ export default function PersonalLoanPage() {
           title="Personal Loan"
           tagline="Fast, flexible personal loans for weddings, medical needs, travel, and more — with expert guidance at every step."
           applySlug="personal-loan"
+          currentSlug="personal-loan" 
           eligibility={[
             { label: "Minimum Monthly Income", value: "₹25,000" },
             { label: "Minimum CIBIL Score", value: "620+" },

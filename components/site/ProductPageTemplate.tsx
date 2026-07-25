@@ -10,7 +10,15 @@ interface ProductPageTemplateProps {
   applySlug: string;
   eligibility: { label: string; value: string }[];
   features: string[];
+  currentSlug: string; // e.g. "personal-loan", "business-loan", "credit-card", "emi-calculator"
 }
+
+const allProducts = [
+  { slug: "personal-loan", label: "Personal Loan", href: "/personal-loan" },
+  { slug: "business-loan", label: "Business Loan", href: "/business-loan" },
+  { slug: "credit-card", label: "Credit Card", href: "/credit-card" },
+  { slug: "emi-calculator", label: "EMI Calculator", href: "/emi-calculator" },
+];
 
 export default function ProductPageTemplate({
   title,
@@ -18,7 +26,10 @@ export default function ProductPageTemplate({
   applySlug,
   eligibility,
   features,
+  currentSlug,
 }: ProductPageTemplateProps) {
+  const relatedProducts = allProducts.filter((p) => p.slug !== currentSlug);
+
   return (
     <div className="relative min-h-screen overflow-hidden pt-28 pb-20 font-sans text-white">
       
@@ -94,6 +105,34 @@ export default function ProductPageTemplate({
 
         </div>
       </div>
+
+      {/* --- RELATED PRODUCTS / INTERNAL LINKING SECTION --- */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-24"
+      >
+        <h2 className="mb-8 text-center text-2xl font-bold text-white md:text-3xl">
+          You May Also Like
+        </h2>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {relatedProducts.map((product) => (
+            <Link
+              key={product.slug}
+              href={product.href}
+              className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/30 hover:bg-white/10"
+            >
+              <span className="text-base font-semibold text-white">{product.label}</span>
+              <ArrowRight
+                size={18}
+                className="text-white/40 transition-all duration-300 group-hover:translate-x-1 group-hover:text-yellow-400"
+              />
+            </Link>
+          ))}
+        </div>
+      </motion.div>
 
       {/* --- BOTTOM CTA SECTION --- */}
       <motion.div 
