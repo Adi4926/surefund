@@ -1,8 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { CheckCircle2, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import Script from "next/script";
+import { CheckCircle2, ArrowRight, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
 
 interface ProductPageTemplateProps {
   title: string;
@@ -10,7 +17,8 @@ interface ProductPageTemplateProps {
   applySlug: string;
   eligibility: { label: string; value: string }[];
   features: string[];
-  currentSlug: string; // e.g. "personal-loan", "business-loan", "credit-card", "emi-calculator"
+  currentSlug: string;
+  faqs?: FAQ[];
 }
 
 const allProducts = [
@@ -20,6 +28,38 @@ const allProducts = [
   { slug: "emi-calculator", label: "EMI Calculator", href: "/emi-calculator" },
 ];
 
+function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick: () => void }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
+      <button
+        onClick={onClick}
+        className="flex w-full items-center justify-between gap-4 p-6 text-left"
+      >
+        <span className="text-base font-semibold text-white">{faq.question}</span>
+        <ChevronDown
+          size={20}
+          className={`shrink-0 text-yellow-400 transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <p className="px-6 pb-6 text-sm leading-relaxed text-white/70">{faq.answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function ProductPageTemplate({
   title,
   tagline,
@@ -27,12 +67,36 @@ export default function ProductPageTemplate({
   eligibility,
   features,
   currentSlug,
+  faqs,
 }: ProductPageTemplateProps) {
   const relatedProducts = allProducts.filter((p) => p.slug !== currentSlug);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <div className="relative min-h-screen overflow-hidden pt-28 pb-20 font-sans text-white">
-      
+
+      {/* --- FAQ SCHEMA (JSON-LD) --- */}
+      {faqs && faqs.length > 0 && (
+        <Script
+          id={`faq-schema-${currentSlug}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
+
       {/* --- HERO SECTION --- */}
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
@@ -105,6 +169,31 @@ export default function ProductPageTemplate({
 
         </div>
       </div>
+
+      {/* --- FAQ SECTION --- */}
+      {faqs && faqs.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mb-24"
+        >
+          <h2 className="mb-8 text-center text-2xl font-bold text-white md:text-3xl">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                isOpen={openIndex === i}
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* --- RELATED PRODUCTS / INTERNAL LINKING SECTION --- */}
       <motion.div

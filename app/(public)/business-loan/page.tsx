@@ -31,6 +31,33 @@ export default function BusinessLoanPage() {
             "Faster approvals through our banking partner network",
             "Guidance on the right documentation for your business type",
           ]}
+          faqs={[
+            {
+              question: "What are the eligibility criteria for a business loan?",
+              answer:
+                "Your business should be at least 1 year old with a minimum annual turnover of ₹5 Lakh. Both self-employed professionals and business owners can apply through SureFund.",
+            },
+            {
+              question: "Is collateral required for a business loan?",
+              answer:
+                "No, SureFund helps you access collateral-free business loans from our partner banks and NBFCs — no need to pledge property or assets to secure funding.",
+            },
+            {
+              question: "How much loan amount can I get for my business?",
+              answer:
+                "Loan amount depends on your business turnover, age, and financial health. Our team matches you with the right lender to get the maximum eligible amount at the best rate.",
+            },
+            {
+              question: "What documents are needed for a business loan in Lucknow?",
+              answer:
+                "You'll typically need business registration proof, GST returns or ITR, bank statements, and KYC documents. Our advisor guides you through the exact list based on your business type.",
+            },
+            {
+              question: "How long does business loan approval take?",
+              answer:
+                "Through SureFund's banking partner network, most business loan applications are processed faster than going directly to a bank, often within a few business days.",
+            },
+          ]}
         />
       </motion.div>
 
