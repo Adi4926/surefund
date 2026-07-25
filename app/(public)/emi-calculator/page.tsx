@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, Suspense } from "react";
 import { Calculator, User, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const loanTypes = [
   { label: "Personal Loan", icon: User, defaultRate: 9.9, slug: "personal-loan" },
@@ -19,10 +20,14 @@ const tenureOptions = [
   { label: "7 yr", months: 84 },
 ];
 
-export default function EmiCalculatorPage() {
-  const [loanTypeIndex, setLoanTypeIndex] = useState(0);
+function EmiCalculatorContent() {
+  const searchParams = useSearchParams();
+  const initialType = searchParams.get("type");
+  const initialIndex = initialType === "business" ? 1 : 0;
+
+  const [loanTypeIndex, setLoanTypeIndex] = useState(initialIndex);
   const [amount, setAmount] = useState(500000);
-  const [rate, setRate] = useState(loanTypes[0].defaultRate);
+  const [rate, setRate] = useState(loanTypes[initialIndex].defaultRate);
   const [tenure, setTenure] = useState(36); // months
 
   function selectLoanType(i: number) {
@@ -51,7 +56,6 @@ export default function EmiCalculatorPage() {
     };
   }, [amount, rate, tenure]);
 
-  // Determine current selected loan route slug
   const currentLoanSlug = loanTypes[loanTypeIndex].slug;
 
   return (
@@ -109,7 +113,6 @@ export default function EmiCalculatorPage() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="space-y-10 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl sm:p-10"
         >
-          {/* Amount Slider */}
           <div>
             <div className="mb-4 flex items-end justify-between">
               <span className="text-sm font-medium text-white/60">Loan Amount</span>
@@ -132,7 +135,6 @@ export default function EmiCalculatorPage() {
             </div>
           </div>
 
-          {/* Interest Rate Slider */}
           <div>
             <div className="mb-4 flex items-end justify-between">
               <span className="text-sm font-medium text-white/60">Interest Rate (p.a.)</span>
@@ -153,7 +155,6 @@ export default function EmiCalculatorPage() {
             </div>
           </div>
 
-          {/* Tenure — clickable pills */}
           <div>
             <div className="mb-4 flex items-end justify-between">
               <span className="text-sm font-medium text-white/60">Tenure</span>
@@ -215,7 +216,6 @@ export default function EmiCalculatorPage() {
             </div>
           </div>
 
-          {/* Dynamic Link matching selected loan tab */}
           <Link
             href={`/apply/${currentLoanSlug}`}
             className="mt-10 block w-full rounded-full bg-accent py-4 text-center font-bold text-white shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-1 hover:bg-accent/90 hover:shadow-[0_0_30px_rgba(124,58,237,0.6)]"
@@ -237,5 +237,13 @@ export default function EmiCalculatorPage() {
       </motion.p>
 
     </div>
+  );
+}
+
+export default function EmiCalculatorPage() {
+  return (
+    <Suspense fallback={null}>
+      <EmiCalculatorContent />
+    </Suspense>
   );
 }

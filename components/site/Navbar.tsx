@@ -4,14 +4,36 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, UserCircle2 } from "lucide-react";
+import { Menu, X, Phone, UserCircle2, ChevronDown } from "lucide-react";
 import LoginModal from "@/components/portal/LoginModal";
 
-const links = [
+interface NavLink {
+  label: string;
+  href: string;
+  dropdown?: { label: string; href: string }[];
+}
+
+const links: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "EMI Calculator", href: "/emi-calculator" },
+  {
+    label: "Services",
+    href: "/services",
+    dropdown: [
+      { label: "Personal Loan", href: "/personal-loan" },
+      { label: "Business Loan", href: "/business-loan" },
+      { label: "Car Loan & Used Car", href: "/car-loan" },
+      { label: "Loan Against Property", href: "/lap" },
+    ],
+  },
+  {
+    label: "EMI Calculator",
+    href: "/emi-calculator",
+    dropdown: [
+      { label: "Personal Loan EMI", href: "/emi-calculator?type=personal" },
+      { label: "Business Loan EMI", href: "/emi-calculator?type=business" },
+    ],
+  },
   { label: "Careers", href: "/careers" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -23,6 +45,8 @@ export default function Navbar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [customerEmail, setCustomerEmail] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
+  const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+  const [mobileOpenLabel, setMobileOpenLabel] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -65,48 +89,89 @@ export default function Navbar() {
           <div className="relative flex-1 lg:flex-none flex items-center justify-between lg:justify-center rounded-full border border-white/15 bg-white/10 p-1.5 shadow-2xl backdrop-blur-2xl">
             
             {/* Mobile Logo inside pill container */}
-<Link href="/" className="flex lg:hidden flex-col items-start px-2 py-1">
-  <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
-    <span className="text-white">sure</span>
-    <span className="text-indigo-500">fund</span>
-    <span className="text-gray-400 text-[10px] font-semibold ml-0.5">.in</span>
-  </div>
-  <span className="text-[6px] font-bold tracking-[0.2em] text-white/70 uppercase mt-0.5 text-left w-full">
-    Financial Services
-  </span>
-</Link>
+            <Link href="/" className="flex lg:hidden flex-col items-start px-2 py-1">
+              <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
+                <span className="text-white">sure</span>
+                <span className="text-indigo-500">fund</span>
+                <span className="text-gray-400 text-[10px] font-semibold ml-0.5">.in</span>
+              </div>
+              <span className="text-[6px] font-bold tracking-[0.2em] text-white/70 uppercase mt-0.5 text-left w-full">
+                Financial Services
+              </span>
+            </Link>
 
             {/* Desktop Links with Framer Motion LayoutId */}
             <nav className="hidden items-center gap-1 lg:flex">
               {links.map((link) => {
                 const isActive = pathname === link.href;
+                const hasDropdown = !!link.dropdown;
+
                 return (
-                  <Link
+                  <div
                     key={link.href}
-                    href={link.href}
-                    className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                      isActive ? "text-white font-semibold" : "text-white/70 hover:text-white"
-                    }`}
+                    className="relative"
+                    onMouseEnter={() => hasDropdown && setHoveredLabel(link.label)}
+                    onMouseLeave={() => hasDropdown && setHoveredLabel(null)}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="liquid-pill"
-                        layout
-                        className="absolute inset-0 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 35,
-                        }}
-                      />
+                    <Link
+                      href={link.href}
+                      className={`relative flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                        isActive ? "text-white font-semibold" : "text-white/70 hover:text-white"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="liquid-pill"
+                          layout
+                          className="absolute inset-0 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 35,
+                          }}
+                        />
+                      )}
+                      <span className="relative z-10">{link.label}</span>
+                      {hasDropdown && (
+                        <ChevronDown
+                          size={14}
+                          className={`relative z-10 transition-transform duration-200 ${
+                            hoveredLabel === link.label ? "rotate-180" : ""
+                          }`}
+                        />
+                      )}
+                    </Link>
+
+                    {/* Dropdown Panel */}
+                    {hasDropdown && (
+                      <AnimatePresence>
+                        {hoveredLabel === link.label && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute left-1/2 top-full mt-2 w-64 -translate-x-1/2 overflow-hidden rounded-2xl border border-white/15 bg-slate-900/95 p-2 shadow-2xl backdrop-blur-2xl"
+                          >
+                            {link.dropdown!.map((item) => (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                className="block rounded-xl px-4 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     )}
-                    <span className="relative z-10">{link.label}</span>
-                  </Link>
+                  </div>
                 );
               })}
             </nav>
 
-            {/* Mobile Menu Toggle Button (Opens & Closes on click) */}
+            {/* Mobile Menu Toggle Button */}
             <button 
               className="text-white lg:hidden px-3 transition-transform active:scale-95" 
               onClick={() => setOpen((prev) => !prev)}
@@ -137,7 +202,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu Dropdown with Smooth Height & Opacity Slide */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -153,20 +218,73 @@ export default function Navbar() {
               </button>
             </div>
             <nav className="flex flex-col gap-1 pb-2">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                    pathname === link.href 
-                      ? "bg-white/20 border border-white/30 text-white font-semibold backdrop-blur-md" 
-                      : "text-white/90 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {links.map((link) => {
+                const hasDropdown = !!link.dropdown;
+                const isMobileOpen = mobileOpenLabel === link.label;
+
+                return (
+                  <div key={link.href}>
+                    <div
+                      className={`flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                        pathname === link.href
+                          ? "bg-white/20 border border-white/30 text-white font-semibold backdrop-blur-md"
+                          : "text-white/90 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => !hasDropdown && setOpen(false)}
+                        className="flex-1"
+                      >
+                        {link.label}
+                      </Link>
+                      {hasDropdown && (
+                        <button
+                          onClick={() =>
+                            setMobileOpenLabel(isMobileOpen ? null : link.label)
+                          }
+                          aria-label="Toggle submenu"
+                        >
+                          <ChevronDown
+                            size={18}
+                            className={`transition-transform duration-200 ${
+                              isMobileOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                      )}
+                    </div>
+
+                    {hasDropdown && (
+                      <AnimatePresence>
+                        {isMobileOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            className="overflow-hidden pl-4"
+                          >
+                            {link.dropdown!.map((item) => (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={() => {
+                                  setOpen(false);
+                                  setMobileOpenLabel(null);
+                                }}
+                                className="block rounded-xl px-4 py-2.5 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
+                  </div>
+                );
+              })}
               <div className="mt-3 flex items-center gap-3 pt-3 border-t border-white/10">
                 <a
                   href="tel:+911234567890"
