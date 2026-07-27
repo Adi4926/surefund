@@ -1,6 +1,7 @@
 "use client";
 
 import ProductPageTemplate from "@/components/site/ProductPageTemplate";
+import FloatingBottomBanner from "@/components/site/FloatingBottomBanner";
 import { motion } from "framer-motion";
 
 export default function BusinessLoanPage() {
@@ -60,6 +61,9 @@ export default function BusinessLoanPage() {
           ]}
         />
       </motion.div>
+
+      {/* Floating Bottom Sticky Banner for Business Page */}
+      <FloatingBottomBanner />
 
     </div>
   );
