@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     "instant personal loan",
     "personal loan low CIBIL score",
     "SureFund personal loan",
+    "SureFund financial services personal loan",
   ],
 };
 
