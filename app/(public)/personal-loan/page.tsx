@@ -62,54 +62,90 @@ export default function PersonalLoanPage() {
           ]}
         />
 
-        {/* ── Types of Personal Loans Section ── */}
-        <section className="py-20 max-w-7xl mx-auto px-6">
+        {/* ── Types of Personal Loans Section (Updated with all 5 types in bullet points & refined style) ── */}
+        <section className="py-20 max-w-5xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Types of Personal Loans — Tailored for Every Need
             </h2>
             <p className="text-gray-300">
-              Whether it is a medical emergency, a grand wedding, or an urgent cash requirement, we find the right match for you.
+              Explore the right financial category that matches your exact requirements with quick processing.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:border-secondary/50 transition-all">
-              <div className="text-white text-xl font-bold mb-3 flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Instant Emergency Loan
+          <div className="space-y-4">
+            {/* Item 1 */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-secondary/50 transition-all">
+              <div className="mb-2 md:mb-0">
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Short-Term Personal Loan (STPL)
+                </h3>
+                <p className="text-gray-300 text-sm mt-1 pl-5">
+                  Ideal for quick, immediate cash needs with smaller ticket sizes and fast repayment windows.
+                </p>
               </div>
-              <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                Unplanned expenses cannot wait. Get quick disbursal for medical emergencies, sudden travel, or urgent bills with minimal paperwork.
-              </p>
               <span className="text-xs font-semibold text-secondary bg-secondary/10 px-3 py-1.5 rounded-full border border-secondary/20">
-                Fastest Approval
+                Quick Disbursal
               </span>
             </div>
 
-            {/* Card 2 */}
-            <div className="p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:border-secondary/50 transition-all">
-              <div className="text-white text-xl font-bold mb-3 flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Wedding & Lifestyle Loan
+            {/* Item 2 */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-secondary/50 transition-all">
+              <div className="mb-2 md:mb-0">
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Pre-approved Personal Loan
+                </h3>
+                <p className="text-gray-300 text-sm mt-1 pl-5">
+                  Special instant loan offers for pre-qualified customers with zero to minimal paperwork required.
+                </p>
               </div>
-              <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                Make your special moments unforgettable without dipping into your personal savings. Enjoy flexible tenures to repay comfortably.
-              </p>
               <span className="text-xs font-semibold text-secondary bg-secondary/10 px-3 py-1.5 rounded-full border border-secondary/20">
-                Zero Hidden Costs
+                Instant Approval
               </span>
             </div>
 
-            {/* Card 3 */}
-            <div className="p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:border-secondary/50 transition-all">
-              <div className="text-white text-xl font-bold mb-3 flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Debt Consolidation Loan
+            {/* Item 3 */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-secondary/50 transition-all">
+              <div className="mb-2 md:mb-0">
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Flexi Personal Loan
+                </h3>
+                <p className="text-gray-300 text-sm mt-1 pl-5">
+                  Withdraw money as needed from a pre-set limit and pay interest only on the amount you actually use.
+                </p>
               </div>
-              <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                Combine multiple high-interest credit card bills or loans into a single, easy monthly EMI with much lower interest rates.
-              </p>
               <span className="text-xs font-semibold text-secondary bg-secondary/10 px-3 py-1.5 rounded-full border border-secondary/20">
-                Lower EMI Saver
+                Pay Interest on Usage
+              </span>
+            </div>
+
+            {/* Item 4 */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-secondary/50 transition-all">
+              <div className="mb-2 md:mb-0">
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Top-up Personal Loan
+                </h3>
+                <p className="text-gray-300 text-sm mt-1 pl-5">
+                  Need extra funds over your existing running loan? Avail a quick top-up amount with minimal documentation.
+                </p>
+              </div>
+              <span className="text-xs font-semibold text-secondary bg-secondary/10 px-3 py-1.5 rounded-full border border-secondary/20">
+                Extra Funding
+              </span>
+            </div>
+
+            {/* Item 5 */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-secondary/50 transition-all">
+              <div className="mb-2 md:mb-0">
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span> Personal Loan Balance Transfer
+                </h3>
+                <p className="text-gray-300 text-sm mt-1 pl-5">
+                  Transfer your high-interest ongoing loan to a new lender with lower rates and save heavily on total interest.
+                </p>
+              </div>
+              <span className="text-xs font-semibold text-secondary bg-secondary/10 px-3 py-1.5 rounded-full border border-secondary/20">
+                Lower Interest Rates
               </span>
             </div>
           </div>
@@ -154,7 +190,7 @@ export default function PersonalLoanPage() {
                 <tr>
                   <td className="p-5 font-medium text-white">Employment / Business Proof</td>
                   <td className="p-5">Company ID Card & Employment Certificate</td>
-                  <td className="p-5">GST Registration, Trade License or Udyam Aadhaar</td>
+                  <td className="p-5">GST Registration, Trade License or Udyam [Aadhaar Redacted]</td>
                 </tr>
               </tbody>
             </table>
