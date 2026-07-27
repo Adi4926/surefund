@@ -34,7 +34,18 @@ export default function LoginModal({
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-primary/60 p-4 backdrop-blur-md">
       <div className="absolute inset-0" onClick={onClose} />
 
-      <div className="relative z-10 flex w-full max-w-3xl overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur-2xl">
+      {/* Main Container - overflow-hidden को हटाकर overflow-visible किया गया है */}
+      <div className="relative z-10 flex w-full max-w-3xl overflow-visible rounded-3xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur-2xl">
+        
+        {/* 3D Currency Mascot Sitting on the Top Left Edge */}
+        <div className="absolute -top-14 left-4 sm:-top-16 sm:left-6 z-30 w-24 sm:w-32 pointer-events-none filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
+          <img
+            src="/3d currency3.png"
+            alt="3D Currency Mascot"
+            className="w-full h-full object-contain filter saturate-150 scale-110"
+          />
+        </div>
+
         <button
           onClick={onClose}
           className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-colors hover:bg-primary/5"
