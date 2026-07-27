@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { CheckCircle2, ArrowRight, ChevronDown } from "lucide-react";
+import { CheckCircle2, ArrowRight, ChevronDown,ShieldCheck, Award, Users, Headphones } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -33,11 +33,11 @@ function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick:
     <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
       <button
         onClick={onClick}
-        className="flex w-full items-center justify-between gap-4 p-6 text-left"
+        className="flex w-full items-center justify-between gap-4 p-5 text-left"
       >
-        <span className="text-base font-semibold text-white">{faq.question}</span>
+        <span className="text-sm md:text-base font-semibold text-white">{faq.question}</span>
         <ChevronDown
-          size={20}
+          size={18}
           className={`shrink-0 text-yellow-400 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
@@ -52,7 +52,7 @@ function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick:
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="px-6 pb-6 text-sm leading-relaxed text-white/70">{faq.answer}</p>
+            <p className="px-5 pb-5 text-xs md:text-sm leading-relaxed text-white/70">{faq.answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -170,30 +170,85 @@ export default function ProductPageTemplate({
         </div>
       </div>
 
-      {/* --- FAQ SECTION --- */}
-      {faqs && faqs.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mb-24"
-        >
-          <h2 className="mb-8 text-center text-2xl font-bold text-white md:text-3xl">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <FAQItem
-                key={faq.question}
-                faq={faq}
-                isOpen={openIndex === i}
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              />
-            ))}
-          </div>
-        </motion.div>
-      )}
+      {/* --- FAQ & HIGHLIGHTED TRUST BOX SECTION (2-Column Layout) --- */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          
+          {/* Left Side: FAQs (Takes 2 columns) */}
+          {faqs && faqs.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-2"
+            >
+              <h2 className="mb-6 text-2xl font-bold text-white md:text-3xl">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {faqs.map((faq, i) => (
+                  <FAQItem
+                    key={faq.question}
+                    faq={faq}
+                    isOpen={openIndex === i}
+                    onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Right Side: Trust & Compliance Guarantee Box (Takes 1 column) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative overflow-hidden rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-black/90 p-8 backdrop-blur-2xl shadow-[0_0_30px_rgba(16,185,129,0.15)] lg:sticky lg:top-28"
+          >
+            {/* Glowing Accent */}
+            <div className="absolute -top-12 -right-12 w-36 h-36 bg-emerald-500/20 blur-[60px] rounded-full pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold mb-4">
+                <ShieldCheck size={14} /> 100% SECURE & VERIFIED
+              </div>
+              
+              <h3 className="text-xl font-extrabold text-white mb-3">
+                The SureFund Trust Guarantee
+              </h3>
+              
+              <p className="text-xs md:text-sm text-white/70 mb-6 leading-relaxed">
+                We partner only with RBI-registered banks and top NBFCs to ensure your data privacy, transparent loan terms, and absolute financial safety.
+              </p>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-2.5 text-xs font-medium text-white/95">
+                  <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <span>Zero Hidden Charges & Full Transparency</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs font-medium text-white/95">
+                  <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <span>Bank-Grade 256-Bit Data Encryption</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs font-medium text-white/95">
+                  <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <span>Direct Assistance from Lucknow Experts</span>
+                </div>
+              </div>
+
+              <Link
+                href={`/apply/${applySlug}`}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3.5 px-6 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 transition-all duration-300 hover:scale-[1.02]"
+              >
+                Apply with Confidence <ArrowRight size={16} />
+              </Link>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
 
       {/* --- RELATED PRODUCTS / INTERNAL LINKING SECTION --- */}
       <motion.div
