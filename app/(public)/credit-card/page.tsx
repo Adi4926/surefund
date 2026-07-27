@@ -6,6 +6,7 @@ export default function CreditCardPage() {
       title="Credit Card"
       tagline="Premium credit cards with cashback, rewards, and lounge access — matched to your spending profile and credit score."
       applySlug="credit-card"
+      currentSlug="credit-card"
       eligibility={[{ label: "Minimum CIBIL Score", value: "620+" }]}
       features={[
         "Cards from India's leading banks compared side-by-side",
