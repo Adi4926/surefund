@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Wallet, Briefcase, CreditCard, ArrowRight } from "lucide-react";
 
@@ -45,6 +45,19 @@ export default function ProductCards() {
     const cardWidth = el.scrollWidth / products.length;
     el.scrollTo({ left: cardWidth * i, behavior: "smooth" });
   }
+
+  // ── Auto-slide effect for mobile version ──
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % products.length;
+        scrollTo(nextIndex);
+        return nextIndex;
+      });
+    }, 3000); // हर 3 सेकंड में स्लाइड बदलेगा (आप चाहें तो समय घटा या बढ़ा सकते हैं)
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="section">
