@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Wallet, Briefcase, CreditCard, ArrowRight } from "lucide-react";
 
 const products = [
@@ -29,35 +29,18 @@ const products = [
 ];
 
 export default function ProductCards() {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  function handleScroll() {
-    const el = trackRef.current;
-    if (!el) return;
-    const cardWidth = el.scrollWidth / products.length;
-    setActiveIndex(Math.round(el.scrollLeft / cardWidth));
-  }
-
-  function scrollTo(i: number) {
-    const el = trackRef.current;
-    if (!el) return;
-    const cardWidth = el.scrollWidth / products.length;
-    el.scrollTo({ left: cardWidth * i, behavior: "smooth" });
-  }
-
-  // ── Auto-slide effect for mobile version ──
+  // ── Auto-Fade effect for mobile version ──
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % products.length;
-        scrollTo(nextIndex);
-        return nextIndex;
-      });
-    }, 3000); // हर 3 सेकंड में स्लाइड बदलेगा (आप चाहें तो समय घटा या बढ़ा सकते हैं)
+      setActiveIndex((prevIndex) => (prevIndex + 1) % products.length);
+    }, 2500); // 2.5 सेकंड में कार्ड फेड होगा
 
     return () => clearInterval(interval);
   }, []);
+
+  const activeProduct = products[activeIndex];
 
   return (
     <section className="section">
@@ -68,41 +51,43 @@ export default function ProductCards() {
         <p className="mt-3 text-white/60">Choose a product below and apply in minutes.</p>
       </div>
 
-      {/* ── Mobile slider (hidden on sm+) ── */}
-      <div className="sm:hidden">
-        <div
-          ref={trackRef}
-          onScroll={handleScroll}
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          style={{ WebkitOverflowScrolling: "touch" }}
-        >
-          {products.map((p) => (
-            <a
-              key={p.title}
-              href={p.href}
-              className="relative flex w-[80vw] flex-shrink-0 snap-center flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-6 shadow-card backdrop-blur-xl"
+      {/* ── Mobile FADE slider (hidden on sm+) ── */}
+      <div className="sm:hidden flex flex-col items-center px-4">
+        <div className="relative w-full max-w-sm h-[260px]">
+          <AnimatePresence mode="wait">
+            <motion.a
+              key={activeIndex}
+              href={activeProduct.href}
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }} // यहाँ फेड की स्मूथनेस सेट की गई है
+              className="absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-6 shadow-card backdrop-blur-xl"
             >
               {/* Gradient accent blob */}
-              <div className={`absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gradient-to-br ${p.gradient} opacity-20 blur-2xl`} />
-              <div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${p.gradient} text-white shadow-md`}>
-                <p.icon size={26} />
+              <div className={`absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gradient-to-br ${activeProduct.gradient} opacity-20 blur-2xl`} />
+              
+              <div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeProduct.gradient} text-white shadow-md`}>
+                <activeProduct.icon size={26} />
               </div>
-              <h3 className="relative text-lg font-semibold text-white">{p.title}</h3>
-              <p className="relative mt-2 text-sm text-white/60">{p.desc}</p>
-              <div className="relative mt-5 flex items-center gap-1 text-sm font-semibold text-accent">
+              
+              <h3 className="relative text-xl font-semibold text-white">{activeProduct.title}</h3>
+              <p className="relative mt-2 text-sm text-white/60 leading-relaxed">{activeProduct.desc}</p>
+              
+              <div className="relative mt-auto flex items-center gap-1 text-sm font-semibold text-accent">
                 Apply Now <ArrowRight size={15} />
               </div>
-            </a>
-          ))}
+            </motion.a>
+          </AnimatePresence>
         </div>
 
         {/* Dot indicators */}
-        <div className="mt-4 flex justify-center gap-2">
+        <div className="mt-6 flex justify-center gap-2">
           {products.map((_, i) => (
             <button
               key={i}
-              onClick={() => scrollTo(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              onClick={() => setActiveIndex(i)}
+              className={`h-2 rounded-full transition-all duration-500 ease-out ${
                 i === activeIndex
                   ? "w-6 bg-accent"
                   : "w-2 bg-white/20"
