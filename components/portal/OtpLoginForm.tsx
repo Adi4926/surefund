@@ -92,19 +92,17 @@ function OtpLoginFormInner() {
       {step === "email" ? (
         <div className="space-y-4">
           <input
+            placeholder="Full Name (first time only)"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 outline-none focus:border-accent"
+          />
+          <input
             required
             type="email"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 outline-none focus:border-accent"
-          />
-          <input
-            placeholder="Full Name (first time only)"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            autoComplete="name"
             className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/50 outline-none focus:border-accent"
           />
           {error && <p className="text-sm text-red-300">{error}</p>}

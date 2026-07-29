@@ -5,43 +5,23 @@ import Customer from "@/models/Customer";
 import { sendOtpEmail } from "@/lib/email";
 
 const bodySchema = z.object({
-  email: z.string().min(1, "Email is required"), // पहले लचीला रखें ताकि चेक कर सकें
-  fullName: z.string().min(2).optional(),
+  email: z.string().email("Enter a valid email address"),
+  fullName: z.string().min(2).optional(), // used on first-time signup
 });
 
 export async function POST(req: NextRequest) {
   try {
     const json = await req.json();
-    
-    // अगर गलती से यूजर ने ईमेल वाले बॉक्स में नाम और नाम वाले बॉक्स में ईमेल भर दिया हो, तो उन्हें सही क्रम में सेट करें
-    let targetEmail = json.email || "";
-    let targetName = json.fullName;
-
-    if (targetEmail && !targetEmail.includes("@") && json.fullName && json.fullName.includes("@")) {
-      // दोनों को आपस में बदल लें (Swap)
-      const temp = targetEmail;
-      targetEmail = json.fullName;
-      targetName = temp;
-    }
-
-    const parsed = bodySchema.safeParse({ email: targetEmail, fullName: targetName });
+    const parsed = bodySchema.safeParse(json);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "Please enter a valid email address" },
+        { error: parsed.error.issues[0].message },
         { status: 400 }
       );
     }
 
-    // सुनिश्चित करें कि यह वाकई एक वैध ईमेल है
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const normalizedEmail = targetEmail.trim().toLowerCase();
-    
-    if (!emailRegex.test(normalizedEmail)) {
-      return NextResponse.json(
-        { error: "Please enter a valid email address" },
-        { status: 400 }
-      );
-    }
+    const { email, fullName } = parsed.data;
+    const normalizedEmail = email.toLowerCase();
 
     await connectDB();
 
@@ -73,7 +53,7 @@ export async function POST(req: NextRequest) {
           otpCode: otp,
           otpExpiresAt: expiresAt,
         },
-        $setOnInsert: { fullName: targetName || "SureFund Customer", email: normalizedEmail },
+        $setOnInsert: { fullName: fullName || "SureFund Customer", email: normalizedEmail },
       },
       { upsert: true, new: true }
     );
