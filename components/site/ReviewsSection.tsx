@@ -83,7 +83,7 @@ function ReviewsCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-    }, 3500); // हर 3.5 सेकंड में अगला रिव्यू ऑटोमैटिकली आ जाएगा
+    }, 2500); // हर 3.5 सेकंड में अगला रिव्यू ऑटोमैटिकली आ जाएगा
 
     return () => clearInterval(interval);
   }, []);
