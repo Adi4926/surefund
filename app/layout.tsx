@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import SplashScreen from "@/components/site/SplashScreen";
 import Script from "next/script";
 import "./globals.css";
@@ -18,14 +18,22 @@ export const metadata: Metadata = {
   },
 };
 
+// ── मोबाइल पर अनचाहे ज़ूम-इन/ज़ूम-आउट और साइड स्क्रॉल को रोकने के लिए ──
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="overflow-x-hidden">
+      <body className="overflow-x-hidden max-w-[100vw] relative bg-background text-white font-body antialiased">
         <Script
           id="organization-schema"
           type="application/ld+json"
