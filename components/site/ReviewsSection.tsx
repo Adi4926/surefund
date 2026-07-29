@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -77,6 +77,15 @@ function ReviewsCarousel() {
 
   const selectSlide = useCallback((nextIndex: number) => {
     setCurrentIndex((nextIndex + reviews.length) % reviews.length);
+  }, []);
+
+  // ── Auto-scroll effect for both Mobile & Web ──
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    }, 3500); // हर 3.5 सेकंड में अगला रिव्यू ऑटोमैटिकली आ जाएगा
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
