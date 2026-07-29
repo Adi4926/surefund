@@ -80,9 +80,10 @@ function ReviewsCarousel() {
   }, []);
 
   return (
-    <div className="relative isolate mx-auto w-full max-w-5xl pb-16">
+    <div className="relative isolate mx-auto w-full max-w-5xl pb-16 overflow-hidden">
+      {/* ── यहाँ overflow-hidden लगाने से 3D रोटेशन चालू रहेगा पर स्क्रीन से बाहर कुछ नहीं निकलेगा ── */}
       <div
-        className="relative h-[500px] overflow-visible"
+        className="relative h-[500px] overflow-hidden sm:overflow-visible"
         style={{ perspective: "1400px" }}
       >
         <motion.div
@@ -178,7 +179,7 @@ function ReviewsCarousel() {
 
 export default function ReviewsSection() {
   return (
-    <section className="py-20">
+    <section className="py-20 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         {/* Heading */}
         <motion.div
