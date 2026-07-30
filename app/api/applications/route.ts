@@ -3,17 +3,15 @@ import { z } from "zod";
 import { connectDB } from "@/lib/mongodb";
 import LoanApplication from "@/models/LoanApplication";
 import Lead, { PRODUCT_TYPES } from "@/models/Lead";
-import {
-  uploadDocumentToCloudinary,
-  MAX_DOC_SIZE_BYTES,
-} from "@/lib/cloudinary";
 import { notifyNewApplication } from "@/lib/email";
 import { getAuthFromRequest } from "@/lib/auth";
 
 const documentSchema = z.object({
   type: z.enum(["PAN", "Aadhaar"]),
-  dataUri: z.string().startsWith("data:"),
-  bytesEstimate: z.number().max(MAX_DOC_SIZE_BYTES, "File must be under 5MB"),
+  url: z.string().url(),
+  publicId: z.string(),
+  format: z.string(),
+  bytes: z.number(),
 });
 
 const applicationSchema = z.object({
@@ -23,7 +21,8 @@ const applicationSchema = z.object({
   documents: z.array(documentSchema).min(1, "Upload at least one document"),
 });
 
-// POST /api/applications — submits the application + uploads docs to Cloudinary
+// POST /api/applications — documents already uploaded to Cloudinary via
+// /api/upload-document; this just saves the application record with their URLs
 export async function POST(req: NextRequest) {
   try {
     const json = await req.json();
@@ -43,29 +42,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Lead not found" }, { status: 404 });
     }
 
-    const uploaded = await Promise.all(
-      documents.map(async (doc) => {
-        const result = await uploadDocumentToCloudinary(
-          doc.dataUri,
-          `leads/${leadId}`
-        );
-        return {
-          type: doc.type,
-          url: result.url,
-          publicId: result.publicId,
-          format: result.format,
-          bytes: result.bytes,
-          uploadedAt: new Date(),
-        };
-      })
-    );
-
     const application = await LoanApplication.create({
       lead: lead._id,
       customer: lead.customer,
       productType,
       loanAmount,
-      documents: uploaded,
+      documents: documents.map((doc) => ({
+        type: doc.type,
+        url: doc.url,
+        publicId: doc.publicId,
+        format: doc.format,
+        bytes: doc.bytes,
+        uploadedAt: new Date(),
+      })),
       status: "Documents Pending",
     });
 

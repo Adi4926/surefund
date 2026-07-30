@@ -19,13 +19,31 @@ import StepLoanDetails from "@/components/apply/StepLoanDetails";
 import StepDocumentUpload, { ApplyDocuments } from "@/components/apply/StepDocumentUpload";
 import StepReview from "@/components/apply/StepReview";
 
-function fileToDataUri(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(new Error("Could not read file"));
-    reader.readAsDataURL(file);
+interface UploadedDoc {
+  url: string;
+  publicId: string;
+  format: string;
+  bytes: number;
+}
+
+async function uploadDocument(file: File, folder: string): Promise<UploadedDoc> {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("folder", folder);
+
+  const res = await fetch("/api/upload-document", {
+    method: "POST",
+    body: formData,
   });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Failed to upload document");
+
+  return {
+    url: data.url,
+    publicId: data.publicId,
+    format: data.format,
+    bytes: data.bytes,
+  };
 }
 
 export default function ApplyWizardPage() {
@@ -37,16 +55,16 @@ export default function ApplyWizardPage() {
   const [data, setData] = useState<ApplyDraft>(EMPTY_DRAFT);
   const [documents, setDocuments] = useState<ApplyDocuments>({ pan: null, aadhaar: null });
   const [docError, setDocError] = useState("");
+  const [fileErrors, setFileErrors] = useState({ pan: "", aadhaar: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     if (!productType) return;
-    
+
     const savedDraft = loadDraft(slug);
 
-    // Fetching user details from your existing /api/auth/me endpoint for autofill
     fetch("/api/auth/me")
       .then((res) => res.json())
       .then((resData) => {
@@ -101,6 +119,9 @@ export default function ApplyWizardPage() {
     if (data.step === 4) {
       if (!documents.pan || !documents.aadhaar) {
         return "Please upload both your PAN and Aadhaar card.";
+      }
+      if (fileErrors.pan || fileErrors.aadhaar) {
+        return "Please fix the file errors before continuing.";
       }
     }
     return "";
@@ -167,9 +188,11 @@ export default function ApplyWizardPage() {
       const leadData = await leadRes.json();
       if (!leadRes.ok) throw new Error(leadData.error || "Failed to submit application");
 
-      const [panDataUri, aadhaarDataUri] = await Promise.all([
-        fileToDataUri(documents.pan as File),
-        fileToDataUri(documents.aadhaar as File),
+      // Upload PAN and Aadhaar directly to Cloudinary via our upload endpoint
+      // (avoids sending large base64 payloads through /api/applications)
+      const [panUpload, aadhaarUpload] = await Promise.all([
+        uploadDocument(documents.pan as File, `leads/${leadData.leadId}`),
+        uploadDocument(documents.aadhaar as File, `leads/${leadData.leadId}`),
       ]);
 
       const appRes = await fetch("/api/applications", {
@@ -180,12 +203,8 @@ export default function ApplyWizardPage() {
           productType,
           loanAmount: Number(data.loanAmount),
           documents: [
-            { type: "PAN", dataUri: panDataUri, bytesEstimate: (documents.pan as File).size },
-            {
-              type: "Aadhaar",
-              dataUri: aadhaarDataUri,
-              bytesEstimate: (documents.aadhaar as File).size,
-            },
+            { type: "PAN", ...panUpload },
+            { type: "Aadhaar", ...aadhaarUpload },
           ],
         }),
       });
@@ -203,7 +222,6 @@ export default function ApplyWizardPage() {
 
   return (
     <div>
-      {/* Solid White Container Layout with Dynamic Title */}
       <div className="mb-6 text-center">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
           Apply for <span className="text-blue-600">{productType}</span>
@@ -228,6 +246,8 @@ export default function ApplyWizardPage() {
             documents={documents}
             onChange={(patch) => setDocuments((prev) => ({ ...prev, ...patch }))}
             error={docError}
+            fileErrors={fileErrors}
+            onFileError={(patch) => setFileErrors((prev) => ({ ...prev, ...patch }))}
           />
         )}
         {data.step === 5 && (
