@@ -32,6 +32,23 @@ async function send(subject: string, html: string) {
   }
 }
 
+// Same as send(), but goes to a specific recipient instead of the admin inbox.
+// Used for customer-facing emails (confirmations, OTPs, etc).
+async function sendTo(toEmail: string, subject: string, html: string) {
+  try {
+    await getTransporter().sendMail({
+      from: `"SureFund Financial Services" <${process.env.SMTP_USER}>`,
+      to: toEmail,
+      subject,
+      html,
+    });
+    return true;
+  } catch (err) {
+    console.error("Customer email failed:", err);
+    return false;
+  }
+}
+
 export async function notifyNewLead(lead: {
   fullName: string;
   mobile: string;
@@ -93,6 +110,7 @@ export async function notifyContactForm(msg: {
      <p><b>Message:</b> ${msg.message}</p>`
   );
 }
+
 export async function sendOtpEmail(toEmail: string, otp: string) {
   try {
     await getTransporter().sendMail({
@@ -108,4 +126,41 @@ export async function sendOtpEmail(toEmail: string, otp: string) {
     console.error("OTP email failed:", err);
     return false;
   }
+}
+
+// Sent to the CUSTOMER after their loan application is successfully submitted
+export async function sendApplicationConfirmationEmail(
+  toEmail: string,
+  app: {
+    fullName: string;
+    productType: string;
+    loanAmount: number;
+    applicationId: string;
+  }
+) {
+  return sendTo(
+    toEmail,
+    `✅ Your ${app.productType} Application Has Been Received — SureFund`,
+    `<div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
+       <h2 style="color: #1d4ed8;">Application Received Successfully</h2>
+       <p>Dear ${app.fullName},</p>
+       <p>Thank you for applying with <b>SureFund Financial Services</b>. Your application has been received and is now under review.</p>
+       <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+         <tr>
+           <td style="padding: 8px 0; color: #6b7280;">Application ID</td>
+           <td style="padding: 8px 0; font-weight: bold;">${app.applicationId}</td>
+         </tr>
+         <tr>
+           <td style="padding: 8px 0; color: #6b7280;">Product</td>
+           <td style="padding: 8px 0; font-weight: bold;">${app.productType}</td>
+         </tr>
+         <tr>
+           <td style="padding: 8px 0; color: #6b7280;">Amount Requested</td>
+           <td style="padding: 8px 0; font-weight: bold;">₹${app.loanAmount.toLocaleString("en-IN")}</td>
+         </tr>
+       </table>
+       <p>Our team will review your documents and reach out to you shortly to guide you through the next steps.</p>
+       <p style="margin-top: 24px;">Regards,<br/><b>Team SureFund</b></p>
+     </div>`
+  );
 }

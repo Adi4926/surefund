@@ -3,7 +3,7 @@ import { z } from "zod";
 import { connectDB } from "@/lib/mongodb";
 import LoanApplication from "@/models/LoanApplication";
 import Lead, { PRODUCT_TYPES } from "@/models/Lead";
-import { notifyNewApplication } from "@/lib/email";
+import { notifyNewApplication, sendApplicationConfirmationEmail } from "@/lib/email";
 import { getAuthFromRequest } from "@/lib/auth";
 
 const documentSchema = z.object({
@@ -66,6 +66,16 @@ export async function POST(req: NextRequest) {
       productType,
       loanAmount,
     });
+
+    // Send confirmation email to the customer
+    if (lead.email) {
+      await sendApplicationConfirmationEmail(lead.email, {
+        fullName: lead.fullName,
+        productType,
+        loanAmount,
+        applicationId: application._id.toString(),
+      });
+    }
 
     return NextResponse.json({ success: true, applicationId: application._id });
   } catch (err) {
