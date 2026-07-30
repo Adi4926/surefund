@@ -1,27 +1,14 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-let transporter: nodemailer.Transporter | null = null;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-function getTransporter() {
-  if (transporter) return transporter;
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 465),
-    secure: process.env.SMTP_SECURE !== "false",
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-  return transporter;
-}
-
+const FROM_EMAIL = "SureFund Financial Services <noreply@surefund.in>";
 const NOTIFY_TO = process.env.NOTIFY_EMAIL_TO || "info@surefund.in";
 
 async function send(subject: string, html: string) {
   try {
-    await getTransporter().sendMail({
-      from: `"SureFund Financial Services" <${process.env.SMTP_USER}>`,
+    await resend.emails.send({
+      from: FROM_EMAIL,
       to: NOTIFY_TO,
       subject,
       html,
@@ -36,8 +23,8 @@ async function send(subject: string, html: string) {
 // Used for customer-facing emails (confirmations, OTPs, etc).
 async function sendTo(toEmail: string, subject: string, html: string) {
   try {
-    await getTransporter().sendMail({
-      from: `"SureFund Financial Services" <${process.env.SMTP_USER}>`,
+    await resend.emails.send({
+      from: FROM_EMAIL,
       to: toEmail,
       subject,
       html,
@@ -112,20 +99,13 @@ export async function notifyContactForm(msg: {
 }
 
 export async function sendOtpEmail(toEmail: string, otp: string) {
-  try {
-    await getTransporter().sendMail({
-      from: `"SureFund Financial Services" <${process.env.SMTP_USER}>`,
-      to: toEmail,
-      subject: `Your SureFund Login OTP: ${otp}`,
-      html: `<h2>Your Login OTP</h2>
-             <p>Your one-time password is: <b style="font-size:20px">${otp}</b></p>
-             <p>This OTP is valid for 10 minutes. Do not share it with anyone.</p>`,
-    });
-    return true;
-  } catch (err) {
-    console.error("OTP email failed:", err);
-    return false;
-  }
+  return sendTo(
+    toEmail,
+    `Your SureFund Login OTP: ${otp}`,
+    `<h2>Your Login OTP</h2>
+     <p>Your one-time password is: <b style="font-size:20px">${otp}</b></p>
+     <p>This OTP is valid for 10 minutes. Do not share it with anyone.</p>`
+  );
 }
 
 // Sent to the CUSTOMER after their loan application is successfully submitted
