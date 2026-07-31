@@ -7,28 +7,32 @@ const NOTIFY_TO = process.env.NOTIFY_EMAIL_TO || "info@surefund.in";
 
 async function send(subject: string, html: string) {
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: FROM_EMAIL,
       to: NOTIFY_TO,
       subject,
       html,
     });
+    if (result.error) {
+      console.error("Resend API error (admin notify):", result.error);
+    }
   } catch (err) {
-    // Email failures should never break the lead-capture flow
     console.error("Email notification failed:", err);
   }
 }
 
-// Same as send(), but goes to a specific recipient instead of the admin inbox.
-// Used for customer-facing emails (confirmations, OTPs, etc).
 async function sendTo(toEmail: string, subject: string, html: string) {
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: FROM_EMAIL,
       to: toEmail,
       subject,
       html,
     });
+    if (result.error) {
+      console.error("Resend API error (customer email):", result.error);
+      return false;
+    }
     return true;
   } catch (err) {
     console.error("Customer email failed:", err);
@@ -108,7 +112,6 @@ export async function sendOtpEmail(toEmail: string, otp: string) {
   );
 }
 
-// Sent to the CUSTOMER after their loan application is successfully submitted
 export async function sendApplicationConfirmationEmail(
   toEmail: string,
   app: {
