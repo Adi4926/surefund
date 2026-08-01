@@ -1,23 +1,29 @@
 import { Check } from "lucide-react";
-import { LEAD_STATUSES } from "@/lib/constants";
 
-const REJECTED_OR_DISBURSED_TERMINAL = ["Rejected", "Disbursed"];
+// Customer-facing timeline. The underlying database status can be
+// "New Lead", "Contacted", or "Documents Pending" — all of these are
+// shown to the customer simply as "Loan Applied" so the early internal
+// stages aren't exposed.
+const DISPLAY_STEPS: { label: string; statuses: string[] }[] = [
+  { label: "Loan Applied", statuses: ["New Lead", "Contacted", "Documents Pending"] },
+  { label: "Under Review", statuses: ["Under Review"] },
+  { label: "Approved", statuses: ["Approved"] },
+  { label: "Disbursed", statuses: ["Disbursed"] },
+];
 
 export default function StatusTimeline({ status }: { status: string }) {
   const isRejected = status === "Rejected";
-  // The pipeline is linear except Rejected, which can happen from any stage.
-  const pipeline = LEAD_STATUSES.filter((s) => s !== "Rejected");
-  const currentIndex = pipeline.indexOf(status as (typeof pipeline)[number]);
+  const currentIndex = DISPLAY_STEPS.findIndex((step) => step.statuses.includes(status));
 
   return (
     <div className="space-y-0">
-      {pipeline.map((step, i) => {
+      {DISPLAY_STEPS.map((step, i) => {
         const completed = !isRejected && i <= currentIndex;
         const isCurrent = !isRejected && i === currentIndex;
-        const isLast = i === pipeline.length - 1;
+        const isLast = i === DISPLAY_STEPS.length - 1;
 
         return (
-          <div key={step} className="flex gap-4">
+          <div key={step.label} className="flex gap-4">
             <div className="flex flex-col items-center">
               <div
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold ${
@@ -43,7 +49,7 @@ export default function StatusTimeline({ status }: { status: string }) {
                   isCurrent ? "text-secondary" : completed ? "text-primary" : "text-primary/40"
                 }`}
               >
-                {step}
+                {step.label}
               </p>
               {isCurrent && (
                 <p className="mt-0.5 text-xs text-primary/50">Current status</p>
