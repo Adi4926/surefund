@@ -172,11 +172,11 @@ export async function sendApplicationConfirmationEmail(
                             <td align="right" style="padding:6px 0; color:#0f2d52; font-size:14px; font-weight:bold;">${app.applicationId}</td>
                           </tr>
                           <tr>
-                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Product</td>
+                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Loan Type</td>
                             <td align="right" style="padding:6px 0; color:#333333; font-size:14px; border-top:1px solid #e5e9ef;">${app.productType}</td>
                           </tr>
                           <tr>
-                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Amount Requested</td>
+                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Loan Amount Requested</td>
                             <td align="right" style="padding:6px 0; color:#333333; font-size:14px; font-weight:bold; border-top:1px solid #e5e9ef;">₹${app.loanAmount.toLocaleString("en-IN")}</td>
                           </tr>
                           <tr>
