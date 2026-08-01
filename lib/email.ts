@@ -123,27 +123,101 @@ export async function sendApplicationConfirmationEmail(
 ) {
   return sendTo(
     toEmail,
-    `✅ Your ${app.productType} Application Has Been Received — SureFund`,
-    `<div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
-       <h2 style="color: #1d4ed8;">Application Received Successfully</h2>
-       <p>Dear ${app.fullName},</p>
-       <p>Thank you for applying with <b>SureFund Financial Services</b>. Your application has been received and is now under review.</p>
-       <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-         <tr>
-           <td style="padding: 8px 0; color: #6b7280;">Application ID</td>
-           <td style="padding: 8px 0; font-weight: bold;">${app.applicationId}</td>
-         </tr>
-         <tr>
-           <td style="padding: 8px 0; color: #6b7280;">Product</td>
-           <td style="padding: 8px 0; font-weight: bold;">${app.productType}</td>
-         </tr>
-         <tr>
-           <td style="padding: 8px 0; color: #6b7280;">Amount Requested</td>
-           <td style="padding: 8px 0; font-weight: bold;">₹${app.loanAmount.toLocaleString("en-IN")}</td>
-         </tr>
-       </table>
-       <p>Our team will review your documents and reach out to you shortly to guide you through the next steps.</p>
-       <p style="margin-top: 24px;">Regards,<br/><b>Team SureFund</b></p>
-     </div>`
+    `Your ${app.productType} Application Has Been Received — SureFund`,
+    `<!DOCTYPE html>
+    <html>
+    <body style="margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f8; padding: 32px 0;">
+        <tr>
+          <td align="center">
+            <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+
+              <!-- Header with clickable logo -->
+              <tr>
+                <td style="background-color:#0f2d52; padding: 24px 40px;">
+                  <a href="https://surefund.in" target="_blank" style="text-decoration:none;">
+                    <img src="https://surefund.in/logo.png" alt="SureFund Financial Services" height="46" style="display:block; border:0;" />
+                  </a>
+                </td>
+              </tr>
+
+              <!-- Status Banner -->
+              <tr>
+                <td style="background-color:#eef7f0; padding: 16px 40px; border-bottom: 1px solid #d9ede0;">
+                  <table role="presentation" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="color:#1e8e3e; font-size:14px; font-weight:bold;">
+                        &#10003; Application Received
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Body -->
+              <tr>
+                <td style="padding: 32px 40px;">
+                  <p style="margin:0 0 8px 0; font-size:15px; color:#333333;">Dear ${app.fullName},</p>
+                  <p style="margin:0 0 24px 0; font-size:15px; color:#555555; line-height:1.6;">
+                    Thank you for choosing <strong>SureFund Financial Services</strong>. We've successfully received your application and it is now under review by our team.
+                  </p>
+
+                  <!-- Details Card -->
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #e5e9ef; border-radius:6px; margin-bottom: 24px;">
+                    <tr>
+                      <td style="padding: 20px 24px;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td style="padding:6px 0; color:#8a94a3; font-size:13px;">Application ID</td>
+                            <td align="right" style="padding:6px 0; color:#0f2d52; font-size:14px; font-weight:bold;">${app.applicationId}</td>
+                          </tr>
+                          <tr>
+                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Product</td>
+                            <td align="right" style="padding:6px 0; color:#333333; font-size:14px; border-top:1px solid #e5e9ef;">${app.productType}</td>
+                          </tr>
+                          <tr>
+                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Amount Requested</td>
+                            <td align="right" style="padding:6px 0; color:#333333; font-size:14px; font-weight:bold; border-top:1px solid #e5e9ef;">₹${app.loanAmount.toLocaleString("en-IN")}</td>
+                          </tr>
+                          <tr>
+                            <td style="padding:6px 0; color:#8a94a3; font-size:13px; border-top:1px solid #e5e9ef;">Status</td>
+                            <td align="right" style="padding:6px 0; border-top:1px solid #e5e9ef;">
+                              <span style="background-color:#fff4e5; color:#b06500; font-size:12px; font-weight:bold; padding:3px 10px; border-radius:12px;">Under Review</span>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <p style="margin:0 0 24px 0; font-size:14px; color:#555555; line-height:1.6;">
+                    Our team will verify your documents and get in touch with you shortly with the next steps. You can reply directly to this email if you have any questions.
+                  </p>
+
+                  <p style="margin:0; font-size:14px; color:#333333;">
+                    Regards,<br/>
+                    <strong>Team SureFund</strong>
+                  </p>
+                </td>
+              </tr>
+
+              <!-- Footer -->
+              <tr>
+                <td style="background-color:#f8fafc; padding: 20px 40px; border-top:1px solid #e5e9ef;">
+                  <p style="margin:0 0 6px 0; font-size:12px; color:#8a94a3; line-height:1.6;">
+                    This is an automated message from SureFund Financial Services. Please do not share your Application ID with anyone.
+                  </p>
+                  <p style="margin:0; font-size:12px; color:#8a94a3;">
+                    &copy; ${new Date().getFullYear()} SureFund Financial Services. All rights reserved.
+                  </p>
+                </td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>`
   );
 }
