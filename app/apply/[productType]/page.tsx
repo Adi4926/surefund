@@ -16,35 +16,7 @@ import ProgressBar from "@/components/apply/ProgressBar";
 import StepPersonalDetails from "@/components/apply/StepPersonalDetails";
 import StepEmploymentDetails from "@/components/apply/StepEmploymentDetails";
 import StepLoanDetails from "@/components/apply/StepLoanDetails";
-import StepDocumentUpload, { ApplyDocuments } from "@/components/apply/StepDocumentUpload";
 import StepReview from "@/components/apply/StepReview";
-
-interface UploadedDoc {
-  url: string;
-  publicId: string;
-  format: string;
-  bytes: number;
-}
-
-async function uploadDocument(file: File, folder: string): Promise<UploadedDoc> {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("folder", folder);
-
-  const res = await fetch("/api/upload-document", {
-    method: "POST",
-    body: formData,
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Failed to upload document");
-
-  return {
-    url: data.url,
-    publicId: data.publicId,
-    format: data.format,
-    bytes: data.bytes,
-  };
-}
 
 export default function ApplyWizardPage() {
   const router = useRouter();
@@ -53,9 +25,6 @@ export default function ApplyWizardPage() {
   const productType = slugToProductType(slug);
 
   const [data, setData] = useState<ApplyDraft>(EMPTY_DRAFT);
-  const [documents, setDocuments] = useState<ApplyDocuments>({ pan: null, aadhaar: null });
-  const [docError, setDocError] = useState("");
-  const [fileErrors, setFileErrors] = useState({ pan: "", aadhaar: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [hydrated, setHydrated] = useState(false);
@@ -116,26 +85,16 @@ export default function ApplyWizardPage() {
     if (data.step === 3) {
       if (!data.loanAmount) return "Please enter the amount you're requesting.";
     }
-    if (data.step === 4) {
-      if (!documents.pan || !documents.aadhaar) {
-        return "Please upload both your PAN and Aadhaar card.";
-      }
-      if (fileErrors.pan || fileErrors.aadhaar) {
-        return "Please fix the file errors before continuing.";
-      }
-    }
     return "";
   }
 
   function handleNext() {
     const err = validateCurrentStep();
     if (err) {
-      setDocError(data.step === 4 ? err : "");
-      if (data.step !== 4) alert(err);
+      alert(err);
       return;
     }
-    setDocError("");
-    goToStep(Math.min(data.step + 1, 5));
+    goToStep(Math.min(data.step + 1, 4));
   }
 
   function handleBack() {
@@ -188,13 +147,6 @@ export default function ApplyWizardPage() {
       const leadData = await leadRes.json();
       if (!leadRes.ok) throw new Error(leadData.error || "Failed to submit application");
 
-      // Upload PAN and Aadhaar directly to Cloudinary via our upload endpoint
-      // (avoids sending large base64 payloads through /api/applications)
-      const [panUpload, aadhaarUpload] = await Promise.all([
-        uploadDocument(documents.pan as File, `leads/${leadData.leadId}`),
-        uploadDocument(documents.aadhaar as File, `leads/${leadData.leadId}`),
-      ]);
-
       const appRes = await fetch("/api/applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -202,14 +154,10 @@ export default function ApplyWizardPage() {
           leadId: leadData.leadId,
           productType,
           loanAmount: Number(data.loanAmount),
-          documents: [
-            { type: "PAN", ...panUpload },
-            { type: "Aadhaar", ...aadhaarUpload },
-          ],
         }),
       });
       const appData = await appRes.json();
-      if (!appRes.ok) throw new Error(appData.error || "Failed to upload documents");
+      if (!appRes.ok) throw new Error(appData.error || "Failed to submit application");
 
       clearDraft(slug);
       router.push(`/apply/success?ref=${appData.applicationId}`);
@@ -242,16 +190,7 @@ export default function ApplyWizardPage() {
           <StepLoanDetails data={data} onChange={updateData} productType={productType} />
         )}
         {data.step === 4 && (
-          <StepDocumentUpload
-            documents={documents}
-            onChange={(patch) => setDocuments((prev) => ({ ...prev, ...patch }))}
-            error={docError}
-            fileErrors={fileErrors}
-            onFileError={(patch) => setFileErrors((prev) => ({ ...prev, ...patch }))}
-          />
-        )}
-        {data.step === 5 && (
-          <StepReview data={data} documents={documents} productType={productType} />
+          <StepReview data={data} productType={productType} />
         )}
 
         {submitError && <p className="mt-4 text-sm text-red-500">{submitError}</p>}
@@ -265,7 +204,7 @@ export default function ApplyWizardPage() {
             <ChevronLeft size={16} /> Back
           </button>
 
-          {data.step < 5 ? (
+          {data.step < 4 ? (
             <button onClick={handleNext} className="btn-primary flex items-center gap-1">
               Next <ChevronRight size={16} />
             </button>

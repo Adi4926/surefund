@@ -4,7 +4,6 @@ const STEPS = [
   "Personal Details",
   "Employment Details",
   "Loan Details",
-  "Documents",
   "Review & Submit",
 ];
 

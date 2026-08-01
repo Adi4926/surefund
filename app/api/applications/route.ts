@@ -6,23 +6,13 @@ import Lead, { PRODUCT_TYPES } from "@/models/Lead";
 import { notifyNewApplication, sendApplicationConfirmationEmail } from "@/lib/email";
 import { getAuthFromRequest } from "@/lib/auth";
 
-const documentSchema = z.object({
-  type: z.enum(["PAN", "Aadhaar"]),
-  url: z.string().url(),
-  publicId: z.string(),
-  format: z.string(),
-  bytes: z.number(),
-});
-
 const applicationSchema = z.object({
   leadId: z.string().min(1),
   productType: z.enum(PRODUCT_TYPES),
   loanAmount: z.coerce.number().positive(),
-  documents: z.array(documentSchema).min(1, "Upload at least one document"),
 });
 
-// POST /api/applications — documents already uploaded to Cloudinary via
-// /api/upload-document; this just saves the application record with their URLs
+// POST /api/applications — creates the application record (no document upload required)
 export async function POST(req: NextRequest) {
   try {
     const json = await req.json();
@@ -34,7 +24,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { leadId, productType, loanAmount, documents } = parsed.data;
+    const { leadId, productType, loanAmount } = parsed.data;
     await connectDB();
 
     const lead = await Lead.findById(leadId);
@@ -47,18 +37,10 @@ export async function POST(req: NextRequest) {
       customer: lead.customer,
       productType,
       loanAmount,
-      documents: documents.map((doc) => ({
-        type: doc.type,
-        url: doc.url,
-        publicId: doc.publicId,
-        format: doc.format,
-        bytes: doc.bytes,
-        uploadedAt: new Date(),
-      })),
-      status: "Documents Pending",
+      status: "Under Review",
     });
 
-    lead.status = "Documents Pending";
+    lead.status = "Under Review";
     await lead.save();
 
     await notifyNewApplication({

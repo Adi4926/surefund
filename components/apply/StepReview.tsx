@@ -2,7 +2,6 @@
 
 import { ApplyDraft } from "@/lib/applyFormStorage";
 import { ProductType } from "@/lib/constants";
-import { ApplyDocuments } from "./StepDocumentUpload";
 
 function Row({ label, value }: { label: string; value?: string | number | boolean }) {
   if (value === "" || value === undefined || value === null) return null;
@@ -16,11 +15,9 @@ function Row({ label, value }: { label: string; value?: string | number | boolea
 
 export default function StepReview({
   data,
-  documents,
   productType,
 }: {
   data: ApplyDraft;
-  documents: ApplyDocuments;
   productType: ProductType;
 }) {
   const isBusinessLoan = productType === "Business Loan";
@@ -68,13 +65,7 @@ export default function StepReview({
         <Row label="Amount Requested" value={data.loanAmount} />
         <Row label="CIBIL Score" value={data.cibilScore} />
         <Row label="Existing EMI" value={data.existingEmi} />
-        <Row label="Existing Loan" value={data.existingLoan ? "Yes" : "No"} />
-      </div>
-
-      <div className="rounded-xl border border-primary/5 bg-background p-4">
-        <h3 className="mb-1 text-sm font-semibold text-primary">Documents</h3>
-        <Row label="PAN Card" value={documents.pan?.name || "Not uploaded"} />
-        <Row label="Aadhaar Card" value={documents.aadhaar?.name || "Not uploaded"} />
+        
       </div>
     </div>
   );
