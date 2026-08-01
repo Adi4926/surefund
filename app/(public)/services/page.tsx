@@ -78,7 +78,7 @@ export default function ServicesPage() {
 
   const steps = [
     { num: "01", title: "Apply Online", desc: "Fill Out Our Simple Online Application Form" },
-    { num: "02", title: "Document Upload", desc: "Upload Required Documents Through Our Secure Portal" },
+    { num: "02", title: "Document Upload", desc: "Our Team Will Contact You For Required Document" },
     { num: "03", title: "Verification", desc: "Our Team Verifies Your Application and Documents" },
     { num: "04", title: "Approval", desc: "Get Instant Approval and Loan Amount in Your Account" }
   ];
