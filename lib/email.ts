@@ -147,7 +147,7 @@ export async function sendApplicationConfirmationEmail(
 
               <!-- Header with clickable logo -->
               <tr>
-                <td bgcolor="#0f2d52" class="sf-header" style="background-color:#0f2d52; padding: 10px 40px; line-height:0; font-size:0;">
+                <td bgcolor="#0f2d52" class="sf-header" style="background-color:#0f2d52; padding: 4px 40px; line-height:0; font-size:0;">
                   <a href="https://surefund.in" target="_blank" style="text-decoration:none; display:inline-block; line-height:0;">
                     <img src="https://surefund.in/logo.png" alt="SureFund Financial Services" height="68" style="display:block; border:0; outline:none; line-height:0;" />
                   </a>
