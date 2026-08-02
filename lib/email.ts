@@ -204,7 +204,11 @@ export async function sendApplicationConfirmationEmail(
                   </table>
 
                   <p style="margin:0 0 24px 0; font-size:14px; color:#555555; line-height:1.6;">
-                    Our team will verify your documents and get in touch with you shortly with the next steps. You can reply directly to this email if you have any questions.
+                    Our team will verify your documents and get in touch with you shortly with the next steps.If you have any questions contact us.
+                  </p>
+
+                  <p style="margin:0 0 24px 0; font-size:14px; color:#555555; line-height:1.6;">
+                    Need help? Contact us at <a href="mailto:support@surefund.in" style="color:#2563eb; text-decoration:none;">support@surefund.in</a>
                   </p>
 
                   <p style="margin:0; font-size:14px; color:#333333;">
