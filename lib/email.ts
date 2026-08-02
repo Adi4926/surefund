@@ -126,15 +126,28 @@ export async function sendApplicationConfirmationEmail(
     `Your ${app.productType} Application Has Been Received — SureFund`,
     `<!DOCTYPE html>
     <html>
+    <head>
+      <meta name="color-scheme" content="light" />
+      <meta name="supported-color-schemes" content="light" />
+      <style>
+        :root { color-scheme: light; supported-color-schemes: light; }
+        @media (prefers-color-scheme: dark) {
+          .sf-header { background-color: #0f2d52 !important; }
+          .sf-banner { background-color: #eef7f0 !important; }
+          .sf-body-bg { background-color: #ffffff !important; }
+          .sf-outer-bg { background-color: #f4f6f8 !important; }
+        }
+      </style>
+    </head>
     <body style="margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif;">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f8; padding: 32px 0;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="sf-outer-bg" style="background-color:#f4f6f8; padding: 32px 0;">
         <tr>
           <td align="center">
-            <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+            <table role="presentation" width="600" cellpadding="0" cellspacing="0" class="sf-body-bg" style="background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
 
               <!-- Header with clickable logo -->
               <tr>
-                <td style="background-color:#0f2d52; padding: 16px 40px; line-height:0; font-size:0;">
+                <td bgcolor="#0f2d52" class="sf-header" style="background-color:#0f2d52; padding: 10px 40px; line-height:0; font-size:0;">
                   <a href="https://surefund.in" target="_blank" style="text-decoration:none; display:inline-block; line-height:0;">
                     <img src="https://surefund.in/logo.png" alt="SureFund Financial Services" height="68" style="display:block; border:0; outline:none; line-height:0;" />
                   </a>
@@ -143,7 +156,7 @@ export async function sendApplicationConfirmationEmail(
 
               <!-- Status Banner -->
               <tr>
-                <td style="background-color:#eef7f0; padding: 16px 40px; border-bottom: 1px solid #d9ede0;">
+                <td bgcolor="#eef7f0" class="sf-banner" style="background-color:#eef7f0; padding: 16px 40px; border-bottom: 1px solid #d9ede0;">
                   <table role="presentation" cellpadding="0" cellspacing="0">
                     <tr>
                       <td style="color:#1e8e3e; font-size:14px; font-weight:bold;">
