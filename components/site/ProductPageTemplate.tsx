@@ -5,6 +5,7 @@ import Script from "next/script";
 import { CheckCircle2, ArrowRight, ChevronDown,ShieldCheck, Award, Users, Headphones } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 interface FAQ {
   question: string;
@@ -21,11 +22,34 @@ interface ProductPageTemplateProps {
   faqs?: FAQ[];
 }
 
+// Replace each lottieUrl below with the URL you copy from LottieFiles.com
+// (search "money", "briefcase", "credit card", "calculator" and grab the
+// free .lottie or .json embed link for each one)
 const allProducts = [
-  { slug: "personal-loan", label: "Personal Loan", href: "/personal-loan" },
-  { slug: "business-loan", label: "Business Loan", href: "/business-loan" },
-  { slug: "credit-card", label: "Credit Card", href: "/credit-card" },
-  { slug: "emi-calculator", label: "EMI Calculator", href: "/emi-calculator" },
+  {
+    slug: "personal-loan",
+    label: "Personal Loan",
+    href: "/personal-loan",
+    lottieUrl: "https://lottie.host/9de3feb9-358d-4d1d-9cfa-81c6f88a6734/F9bNdMyVFX.lottie",
+  },
+  {
+    slug: "business-loan",
+    label: "Business Loan",
+    href: "/business-loan",
+    lottieUrl: "https://lottie.host/c293d505-d5b1-45a9-9428-a2d3234ea24e/XhpsFoqqX5.lottie",
+  },
+  {
+    slug: "credit-card",
+    label: "Credit Card",
+    href: "/credit-card",
+    lottieUrl: "https://lottie.host/7c438732-1b65-408b-beca-ff8c85400bfa/vZ8m41167l.lottie",
+  },
+  {
+    slug: "emi-calculator",
+    label: "EMI Calculator",
+    href: "/emi-calculator",
+    lottieUrl: "https://lottie.host/035395c7-1819-45c5-8318-93941dbde7c2/Db0vEURt03.lottie",
+  },
 ];
 
 function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick: () => void }) {
@@ -268,7 +292,16 @@ export default function ProductPageTemplate({
               href={product.href}
               className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/30 hover:bg-white/10"
             >
-              <span className="text-base font-semibold text-white">{product.label}</span>
+              <div className="flex items-center gap-3">
+                <div className="h-20 w-20 shrink-0">
+                  <DotLottieReact
+                    src={product.lottieUrl}
+                    loop
+                    autoplay
+                  />
+                </div>
+                <span className="text-base font-semibold text-white">{product.label}</span>
+              </div>
               <ArrowRight
                 size={18}
                 className="text-white/40 transition-all duration-300 group-hover:translate-x-1 group-hover:text-yellow-400"
