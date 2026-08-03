@@ -43,7 +43,7 @@ export default function CreditCardPage() {
         {
           question: "Will applying for a credit card affect my CIBIL score?",
           answer:
-            "Every credit card application involves a hard inquiry, which can cause a small, temporary dip in your CIBIL score. We recommend checking your eligibility first to avoid unnecessary rejections and multiple inquiries.",
+            "Every credit cards application involves a hard inquiry, which can cause a small, temporary dip in your CIBIL score. We recommend checking your eligibility first to avoid unnecessary rejections and multiple inquiries.",
         },
       ]}
     />
