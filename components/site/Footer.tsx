@@ -130,7 +130,7 @@ export default function Footer() {
           {/* Instagram */}
           <li className="relative group">
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/surefund.in/" 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Instagram"
