@@ -71,10 +71,8 @@ export default function ProductCards() {
               {/* Gradient accent blob */}
               <div className={`absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gradient-to-br ${activeProduct.gradient} opacity-20 blur-2xl`} />
 
-              <div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeProduct.gradient} shadow-md`}>
-                <div className="h-10 w-10">
-                  <DotLottieReact src={activeProduct.lottieUrl} loop autoplay />
-                </div>
+              <div className="relative mb-5 h-16 w-16">
+                <DotLottieReact src={activeProduct.lottieUrl} loop autoplay />
               </div>
 
               <h3 className="relative text-xl font-semibold text-white">{activeProduct.title}</h3>
@@ -123,10 +121,8 @@ export default function ProductCards() {
               whileHover={{ scale: 1.04, y: -6 }}
               className="group relative block overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl transition-shadow hover:shadow-glow"
             >
-              <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${p.gradient} shadow-md transition-transform group-hover:scale-110`}>
-                <div className="h-10 w-10">
-                  <DotLottieReact src={p.lottieUrl} loop autoplay />
-                </div>
+              <div className="mb-5 h-16 w-16 transition-transform group-hover:scale-110">
+                <DotLottieReact src={p.lottieUrl} loop autoplay />
               </div>
               <h3 className="text-lg font-semibold text-white">{p.title}</h3>
               <p className="mt-2 text-sm text-white/60">{p.desc}</p>
