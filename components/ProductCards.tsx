@@ -2,27 +2,31 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Wallet, Briefcase, CreditCard, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
+// Replace each lottieUrl below with the URL you copy from LottieFiles.com
+// (same idea as the "You May Also Like" section — search "money", "briefcase",
+// "credit card" and grab the free .lottie embed link for each one)
 const products = [
   {
     title: "Personal Loan",
     desc: "Up to ₹25 Lakh for weddings, medical needs, travel & more.",
-    icon: Wallet,
+    lottieUrl: "https://lottie.host/REPLACE-WITH-PERSONAL-LOAN-URL.lottie",
     href: "/personal-loan",
     gradient: "from-secondary to-blue-400",
   },
   {
     title: "Business Loan",
     desc: "Fuel your growth with collateral-free working capital.",
-    icon: Briefcase,
+    lottieUrl: "https://lottie.host/REPLACE-WITH-BUSINESS-LOAN-URL.lottie",
     href: "/business-loan",
     gradient: "from-primary to-secondary",
   },
   {
     title: "Credit Card",
     desc: "Premium cards with cashback, rewards & lounge access.",
-    icon: CreditCard,
+    lottieUrl: "https://lottie.host/REPLACE-WITH-CREDIT-CARD-URL.lottie",
     href: "/credit-card",
     gradient: "from-accent to-amber-500",
   },
@@ -66,11 +70,13 @@ export default function ProductCards() {
             >
               {/* Gradient accent blob */}
               <div className={`absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gradient-to-br ${activeProduct.gradient} opacity-20 blur-2xl`} />
-              
-              <div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeProduct.gradient} text-white shadow-md`}>
-                <activeProduct.icon size={26} />
+
+              <div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeProduct.gradient} shadow-md`}>
+                <div className="h-10 w-10">
+                  <DotLottieReact src={activeProduct.lottieUrl} loop autoplay />
+                </div>
               </div>
-              
+
               <h3 className="relative text-xl font-semibold text-white">{activeProduct.title}</h3>
               <p className="relative mt-2 text-sm text-white/60 leading-relaxed">{activeProduct.desc}</p>
               
@@ -117,8 +123,10 @@ export default function ProductCards() {
               whileHover={{ scale: 1.04, y: -6 }}
               className="group relative block overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl transition-shadow hover:shadow-glow"
             >
-              <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${p.gradient} text-white shadow-md transition-transform group-hover:scale-110`}>
-                <p.icon size={26} />
+              <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${p.gradient} shadow-md transition-transform group-hover:scale-110`}>
+                <div className="h-10 w-10">
+                  <DotLottieReact src={p.lottieUrl} loop autoplay />
+                </div>
               </div>
               <h3 className="text-lg font-semibold text-white">{p.title}</h3>
               <p className="mt-2 text-sm text-white/60">{p.desc}</p>
