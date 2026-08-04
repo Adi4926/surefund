@@ -12,21 +12,21 @@ const products = [
   {
     title: "Personal Loan",
     desc: "Up to ₹25 Lakh for weddings, medical needs, travel & more.",
-    lottieUrl: "https://lottie.host/REPLACE-WITH-PERSONAL-LOAN-URL.lottie",
+    lottieUrl: "https://lottie.host/12fa99c6-f08d-4885-899f-f00fe2897b25/HrgP1PkAJ7.lottie",
     href: "/personal-loan",
     gradient: "from-secondary to-blue-400",
   },
   {
     title: "Business Loan",
     desc: "Fuel your growth with collateral-free working capital.",
-    lottieUrl: "https://lottie.host/REPLACE-WITH-BUSINESS-LOAN-URL.lottie",
+    lottieUrl: "https://lottie.host/c293d505-d5b1-45a9-9428-a2d3234ea24e/XhpsFoqqX5.lottie",
     href: "/business-loan",
     gradient: "from-primary to-secondary",
   },
   {
     title: "Credit Card",
     desc: "Premium cards with cashback, rewards & lounge access.",
-    lottieUrl: "https://lottie.host/REPLACE-WITH-CREDIT-CARD-URL.lottie",
+    lottieUrl: "https://lottie.host/abc5cc25-4226-4361-8651-959892dc56b0/HGaPQrAHk3.lottie",
     href: "/credit-card",
     gradient: "from-accent to-amber-500",
   },
@@ -121,7 +121,7 @@ export default function ProductCards() {
               whileHover={{ scale: 1.04, y: -6 }}
               className="group relative block overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl transition-shadow hover:shadow-glow"
             >
-              <div className="mb-5 h-16 w-16 transition-transform group-hover:scale-110">
+              <div className="mb-5 h-20 w-20 transition-transform group-hover:scale-110">
                 <DotLottieReact src={p.lottieUrl} loop autoplay />
               </div>
               <h3 className="text-lg font-semibold text-white">{p.title}</h3>
