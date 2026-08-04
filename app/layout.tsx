@@ -140,7 +140,7 @@ export default function RootLayout({
 
     sameAs: [
       "https://www.facebook.com/yourpage", // ⚠️ jo active na ho use hata do
-      "https://www.instagram.com/yourpage",
+      "https://www.instagram.com/surefund.in",
       "https://www.linkedin.com/company/yourcompany",
       "https://x.com/yourpage",
     ],
