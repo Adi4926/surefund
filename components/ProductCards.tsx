@@ -19,7 +19,7 @@ const products = [
   {
     title: "Business Loan",
     desc: "Fuel your growth with collateral-free working capital.",
-    lottieUrl: "https://lottie.host/c293d505-d5b1-45a9-9428-a2d3234ea24e/XhpsFoqqX5.lottie",
+    lottieUrl: "https://lottie.host/5216a868-c7b2-4d0e-8363-8736fdbe3f58/S8CLKailkv.lottie",
     href: "/business-loan",
     gradient: "from-primary to-secondary",
   },
