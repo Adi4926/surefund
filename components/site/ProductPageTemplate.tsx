@@ -36,13 +36,13 @@ const allProducts = [
     slug: "business-loan",
     label: "Business Loan",
     href: "/business-loan",
-    lottieUrl: "https://lottie.host/c293d505-d5b1-45a9-9428-a2d3234ea24e/XhpsFoqqX5.lottie",
+    lottieUrl: "https://lottie.host/5216a868-c7b2-4d0e-8363-8736fdbe3f58/S8CLKailkv.lottie",
   },
   {
     slug: "credit-card",
     label: "Credit Card",
     href: "/credit-card",
-    lottieUrl: "https://lottie.host/7c438732-1b65-408b-beca-ff8c85400bfa/vZ8m41167l.lottie",
+    lottieUrl: "https://lottie.host/abc5cc25-4226-4361-8651-959892dc56b0/HGaPQrAHk3.lottie",
   },
   {
     slug: "emi-calculator",
