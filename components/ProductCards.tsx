@@ -12,7 +12,7 @@ const products = [
   {
     title: "Personal Loan",
     desc: "Up to ₹25 Lakh for weddings, medical needs, travel & more.",
-    lottieUrl: "https://lottie.host/12fa99c6-f08d-4885-899f-f00fe2897b25/HrgP1PkAJ7.lottie",
+    lottieUrl: "https://lottie.host/2d2b97a2-9ca3-42dd-8959-5320bdd20214/VIbZoMcgiN.lottie",
     href: "/personal-loan",
     gradient: "from-secondary to-blue-400",
   },
