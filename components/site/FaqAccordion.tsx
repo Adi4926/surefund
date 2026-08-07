@@ -22,6 +22,7 @@ export default function FaqAccordion({
             <button
               onClick={() => setOpenIndex(open ? null : i)}
               className="flex w-full items-center justify-between px-5 py-4 text-left"
+              aria-expanded={open}
             >
               <span className="font-medium text-primary">{item.question}</span>
               <ChevronDown
@@ -31,11 +32,20 @@ export default function FaqAccordion({
                 }`}
               />
             </button>
-            {open && (
-              <div className="border-t border-primary/5 px-5 py-4 text-sm text-primary/60">
-                {item.answer}
+
+            {/* पहले यहां {open && <div>...</div>} था — यानी बंद होने पर DOM से हट जाता था।
+                अब div हमेशा DOM में रहता है, सिर्फ grid-rows से height animate होती है। */}
+            <div
+              className={`grid transition-all duration-300 ease-in-out ${
+                open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="border-t border-primary/5 px-5 py-4 text-sm text-primary/60">
+                  {item.answer}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         );
       })}

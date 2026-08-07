@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import FaqAccordion from "@/components/site/FaqAccordion";
 import { faqItems } from "@/lib/faqData";
+
+export const metadata: Metadata = {
+  title: "FAQs | Loans, CIBIL & Documentation",
+  description:
+    "Answers to the most common questions about personal loans, business loans, credit cards, CIBIL scores, and documentation at SureFund.",
+  alternates: {
+    canonical: "/faq",
+  },
+};
 
 export default function FaqPage() {
   return (

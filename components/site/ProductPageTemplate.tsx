@@ -58,6 +58,7 @@ function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick:
       <button
         onClick={onClick}
         className="flex w-full items-center justify-between gap-4 p-5 text-left"
+        aria-expanded={isOpen}
       >
         <span className="text-sm md:text-base font-semibold text-white">{faq.question}</span>
         <ChevronDown
@@ -67,19 +68,21 @@ function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick:
           }`}
         />
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <p className="px-5 pb-5 text-xs md:text-sm leading-relaxed text-white/70">{faq.answer}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+      {/* पहले यहां AnimatePresence + {isOpen && ...} था, jo band hone par
+          poora answer DOM se hata deta tha. Ab answer hamesha DOM me rehta hai,
+          bas visually grid-rows se collapse/expand hota hai. */}
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="px-5 pb-5 text-xs md:text-sm leading-relaxed text-white/70">
+            {faq.answer}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
