@@ -143,10 +143,10 @@ export default function RootLayout({
     openingHours: "Mo-Sa 09:00-18:00",
 
     sameAs: [
-      "https://www.facebook.com/yourpage", // ⚠️ jo active na ho use hata do
+      // ⚠️ jo active na ho use hata do
       "https://www.instagram.com/surefund.in",
       "https://www.linkedin.com/company/yourcompany",
-      "https://x.com/yourpage",
+     
     ],
   };
 
