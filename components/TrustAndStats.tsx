@@ -16,7 +16,7 @@ const partners = [
 ];
 
 const stats = [
-  { value: "₹100+ Cr", label: "Loans Facilitated" },
+  { value: "₹500+ Cr", label: "Loans Facilitated" },
   { value: "5000+", label: "Happy Customers" },
   { value: "25+", label: "Banking Partners" },
   { value: "98%", label: "Customer Satisfaction" },
@@ -25,7 +25,7 @@ const stats = [
 function CountUpStat({ value }: { value: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.4 });
-  const [display, setDisplay] = useState(value.replace(/[0-9]/g, "0"));
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (!isInView) return;
