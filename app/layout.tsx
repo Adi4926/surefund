@@ -8,12 +8,12 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "SureFund Financial Services Pvt. Ltd. | Personal Loan, Business Loan & Credit Card Assistance",
+      "SureFund Financial Services - Personal Loan, Business Loan & Credit Card Assistance",
     template: "%s | SureFund",
   },
 
   description:
-    "SureFund Financial Services Pvt. Ltd. provides Personal Loans, Business Loans, Home Loans and Credit Card assistance with fast processing, expert guidance and trusted support across India.",
+    "Get Personal Loans, Business Loans, Home Loans and Credit Card assistance with fast processing, expert guidance and and 25+ bank partners.",
 
   keywords: [
     "Personal Loan",
