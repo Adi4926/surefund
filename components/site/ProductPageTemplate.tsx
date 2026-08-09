@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Script from "next/script";
-import { CheckCircle2, ArrowRight, ChevronDown,ShieldCheck, Award, Users, Headphones } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, ArrowRight, ChevronDown, ShieldCheck, Award, Users, Headphones } from "lucide-react";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
@@ -69,9 +68,7 @@ function FAQItem({ faq, isOpen, onClick }: { faq: FAQ; isOpen: boolean; onClick:
         />
       </button>
 
-      {/* पहले यहां AnimatePresence + {isOpen && ...} था, jo band hone par
-          poora answer DOM se hata deta tha. Ab answer hamesha DOM me rehta hai,
-          bas visually grid-rows se collapse/expand hota hai. */}
+      {/* Answer हमेशा DOM में रहता है (crawler के लिए), सिर्फ visually grid-rows से collapse/expand होता है */}
       <div
         className={`grid transition-all duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
@@ -102,10 +99,12 @@ export default function ProductPageTemplate({
   return (
     <div className="relative min-h-screen overflow-hidden pt-28 pb-20 font-sans text-white">
 
-      {/* --- FAQ SCHEMA (JSON-LD) --- */}
+      {/* --- FAQ SCHEMA (JSON-LD) ---
+          Plain <script> tag इस्तेमाल किया (next/script का <Script> नहीं),
+          ताकi ये JavaScript execute होने का इंतज़ार किए बिना raw HTML में मौजूद रहे —
+          Google crawler को हमेशा मिले, चाहे page पर कोई और JS (जैसे Lottie WASM) fail हो जाए। */}
       {faqs && faqs.length > 0 && (
-        <Script
-          id={`faq-schema-${currentSlug}`}
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
