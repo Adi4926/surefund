@@ -77,16 +77,32 @@ export default function ApplyWizardPage() {
   }
 
   function validateCurrentStep(): string {
-    if (data.step === 1) {
-      if (!data.fullName || !data.mobile || !data.email) {
-        return "Please fill in your name, mobile number, and email.";
-      }
+  if (data.step === 1) {
+    if (!data.fullName || !data.mobile || !data.email) {
+      return "Please fill in your name, mobile number, and email.";
     }
-    if (data.step === 3) {
-      if (!data.loanAmount) return "Please enter the amount you're requesting.";
+
+    if (data.fullName.trim().length < 3) {
+      return "Please enter your full name (at least 3 characters).";
     }
-    return "";
+
+    const mobileDigitsOnly = data.mobile.replace(/\D/g, "");
+    if (mobileDigitsOnly.length !== 10) {
+      return "Please enter a valid 10-digit mobile number.";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(data.email.trim())) {
+      return "Please enter a valid email address.";
+    }
   }
+  if (data.step === 3) {
+    if (!data.loanAmount) return "Please enter the amount you're requesting.";
+  }
+  return "";
+}
+
+
 
   function handleNext() {
     const err = validateCurrentStep();
