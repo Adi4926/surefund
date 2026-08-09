@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import LegalPageLayout from "@/components/site/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Disclaimer",
+  description:
+    "SureFund Financial Services Pvt. Ltd. is a loan DSA, not a bank or NBFC. Read our disclaimer regarding loan sanctioning, interest rates, and the EMI calculator.",
+  alternates: {
+    canonical: "/disclaimer",
+  },
+};
 
 export default function DisclaimerPage() {
   return (
