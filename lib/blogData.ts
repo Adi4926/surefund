@@ -1,3 +1,8 @@
+export interface BlogSource {
+  label: string;
+  url: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -5,6 +10,7 @@ export interface BlogPost {
   date: string;
   author: string;
   content: string[];
+  sources?: BlogSource[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -24,6 +30,10 @@ export const blogPosts: BlogPost[] = [
       "5. Check your credit report periodically for errors and get them corrected with the bureau promptly.",
       "A free CIBIL check on our homepage is a good first step before you apply for any new credit.",
     ],
+    sources: [
+      { label: "TransUnion CIBIL — Official Website", url: "https://www.cibil.com" },
+      { label: "Reserve Bank of India — Credit Information Companies", url: "https://www.rbi.org.in" },
+    ],
   },
   {
     slug: "personal-vs-business-loan",
@@ -38,6 +48,9 @@ export const blogPosts: BlogPost[] = [
       "Business loans are assessed against your business's turnover and age (SureFund's partner lenders typically require 1+ year in business and ₹5 lakh+ annual turnover), but often unlock larger amounts and the interest may be deductible as a business expense.",
       "If your need is strictly personal (medical, travel, wedding), a personal loan is usually simpler. If it's for inventory, equipment, or expansion, a business loan is generally the better long-term fit.",
     ],
+    sources: [
+      { label: "Reserve Bank of India — Official Website", url: "https://www.rbi.org.in" },
+    ],
   },
   {
     slug: "documents-checklist-loan-application",
@@ -51,6 +64,9 @@ export const blogPosts: BlogPost[] = [
       "At minimum, every application needs a PAN card and an Aadhaar card — both are collected during the application itself and uploaded securely.",
       "Depending on the product and lender, you may also be asked for salary slips, bank statements, or business registration proof during the review stage.",
       "Uploading clear, unedited scans or photos (PDF, JPG, or PNG, under 5MB) the first time avoids back-and-forth that can slow down your approval.",
+    ],
+    sources: [
+      { label: "Reserve Bank of India — KYC Norms", url: "https://www.rbi.org.in" },
     ],
   },
 ];
