@@ -22,7 +22,7 @@ const links: NavLink[] = [
     dropdown: [
       { label: "Personal Loan", href: "/personal-loan" },
       { label: "Business Loan", href: "/business-loan" },
-      { label: "Car Loan & Used Car", href: "/car-loan" },
+      { label: "Credit Card", href: "/credit-card" },
       { label: "Loan Against Property", href: "/lap" },
     ],
   },
