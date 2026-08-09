@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import LegalPageLayout from "@/components/site/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "Learn how SureFund Financial Services Pvt. Ltd. collects, uses, stores, and protects your personal and financial information.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (
