@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import LegalPageLayout from "@/components/site/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions",
+  description:
+    "Read the terms and conditions governing your use of SureFund Financial Services Pvt. Ltd.'s loan and credit card advisory services.",
+  alternates: {
+    canonical: "/terms-conditions",
+  },
+};
 
 export default function TermsConditionsPage() {
   return (
