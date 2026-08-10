@@ -61,7 +61,7 @@ export default function FloatingBottomBanner() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="fixed inset-x-0 bottom-0 z-50 p-3 pointer-events-none pb-[calc(env(safe-area-inset-bottom)+10px)]"
         >
-          <div className="mx-auto max-w-5xl pointer-events-auto relative overflow-visible rounded-2xl border border-emerald-500/50 bg-gradient-to-r from-emerald-950 via-slate-950 to-emerald-950 px-3 py-2.5 sm:px-6 sm:py-0 shadow-[0_15px_50px_rgba(0,0,0,0.9)] backdrop-blur-2xl flex items-center justify-between gap-2 sm:gap-4 h-16 sm:h-16">
+          <div className="mx-auto max-w-5xl pointer-events-auto relative overflow-visible rounded-2xl border border-emerald-500/50 bg-gradient-to-r from-emerald-950 via-slate-950 to-emerald-950 px-3 py-2.5 sm:px-6 sm:py-0 shadow-[0_15px_50px_rgba(0,0,0,0.9)] backdrop-blur-2xl flex items-center justify-between gap-2 sm:gap-4 min-h-16 sm:h-16">
             
             {/* Background Glow */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-600/15 via-transparent to-emerald-600/15 pointer-events-none" />
@@ -83,12 +83,12 @@ export default function FloatingBottomBanner() {
 
               <div className="z-10 flex flex-col justify-center min-w-0">
                 {/* Badge: मोबाइल (sm hidden) पर हटा दी गई है, डेस्कटॉप पर दिखेगी */}
-                <span className="hidden sm:inline-block w-fit rounded-full bg-emerald-500/25 px-2 py-0.2 text-[9px] font-extrabold text-emerald-400 uppercase tracking-wider border border-emerald-500/40 mb-0.5">
-                  {bannerConfig.badge}
-                </span>
+                <span className="inline-block w-fit rounded-full bg-emerald-500/25 px-1.5 sm:px-2 py-0.2 text-[7px] sm:text-[9px] font-extrabold text-emerald-400 uppercase tracking-wider border border-emerald-500/40 mb-0.5">
+  {bannerConfig.badge}
+</span>
                 
-                {/* Main Text: मोबाइल पर सिंगल लाइन या साफ़ दिखने के लिए कॉम्पैक्ट किया गया है */}
-                <p className="text-xs sm:text-lg font-black text-white tracking-tight leading-tight sm:leading-none truncate sm:overflow-visible">
+                {/* Main Text: अब mobile पर ज़रूरत पड़ने पर wrap होगा, कटेगा नहीं */}
+                <p className="text-[11px] sm:text-lg font-black text-white tracking-tight leading-tight sm:leading-none whitespace-normal sm:whitespace-nowrap">
                   {bannerConfig.titleText}{" "}
                   <span className="text-yellow-400 text-sm sm:text-xl font-black">{bannerConfig.titleHighlight}</span>{" "}
                   <span className="hidden sm:inline">at</span>{" "}
