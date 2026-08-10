@@ -113,7 +113,7 @@ export default function RootLayout({
 
     url: "https://surefund.in",
 
-    logo: "https://surefund.in/logo.svg",
+    logo: "https://surefund.in/logo.png",
 
     image: "https://surefund.in/og-image.jpg",
 
