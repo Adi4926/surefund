@@ -120,7 +120,7 @@ export default function RootLayout({
     description:
       "SureFund Financial Services Pvt. Ltd. provides Personal Loans, Business Loans, Home Loans and Credit Card assistance.",
 
-    telephone: "+91-XXXXXXXXXX", // ⚠️ apna actual business number daal do
+    telephone: "+91-6306757612", // ⚠️ apna actual business number daal do
 
     email: "support@surefund.in", // ⚠️ apna actual support email confirm kar lo
 

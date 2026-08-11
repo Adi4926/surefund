@@ -26,8 +26,8 @@ const contactDetails = [
   {
     icon: Mail,
     title: "Email",
-    value: "info@surefund.in",
-    href: "mailto:info@surefund.in",
+    value: "support@surefund.in",
+    href: "mailto:support@surefund.in",
   },
 ];
 

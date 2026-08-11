@@ -49,7 +49,7 @@ export default function DisclaimerPage() {
           <p className="leading-relaxed text-sm md:text-base text-white/70">
             For any grievance regarding a loan or credit card sanctioned through
             SureFund, please contact us at{" "}
-            <span className="text-yellow-400 font-medium">info@surefund.in</span> and we will assist in
+            <span className="text-yellow-400 font-medium">support@surefund.in</span> and we will assist in
             escalating the matter to the concerned lending partner.
           </p>
         </section>

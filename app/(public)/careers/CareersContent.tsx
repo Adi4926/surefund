@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Briefcase, Code2, Calculator, Headphones, Users, Mail, MapPin, Clock } from "lucide-react";
 
-const APPLY_EMAIL_BASE = "careers@surefund.in";
+const APPLY_EMAIL_BASE = "contact@surefund.in";
 
 const categories = [
   {
