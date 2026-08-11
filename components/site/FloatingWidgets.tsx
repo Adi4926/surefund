@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Calculator } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_COMPANY_WHATSAPP?.replace(/\D/g, "") || "911234567890";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_COMPANY_WHATSAPP?.replace(/\D/g, "") || "916306757612";
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hi SureFund! I'm interested in a loan. Could you please help me?"
 );

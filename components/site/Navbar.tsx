@@ -184,7 +184,7 @@ export default function Navbar() {
           {/* 3. Right: Phone Icon & Sign In Button */}
           <div className="hidden items-center gap-3 lg:flex shrink-0">
             <a
-              href="tel:+911234567890"
+              href="tel:+916306757612"
               className="flex items-center justify-center rounded-full border border-white/15 bg-white/10 p-3 text-white/80 transition-all hover:bg-white/20 hover:text-white backdrop-blur-xl shadow-lg"
               title="Call Us"
             >
@@ -287,7 +287,7 @@ export default function Navbar() {
               })}
               <div className="mt-3 flex items-center gap-3 pt-3 border-t border-white/10">
                 <a
-                  href="tel:+911234567890"
+                  href="tel:+916306757612"
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20"
                 >
                   <Phone size={16} /> Call Us

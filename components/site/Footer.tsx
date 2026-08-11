@@ -49,13 +49,13 @@ export default function Footer() {
               <span>2/26, 2nd Floor, Ruchi Khand 1, Sharda Nagar, Lucknow, Uttar Pradesh 226012</span>
             </p>
             <p className="flex items-center gap-2.5">
-              <Phone size={16} className="shrink-0 text-yellow-400" /> +91 1234567890
+              <Phone size={16} className="shrink-0 text-yellow-400" /> +91 6306757612
             </p>
             <p className="flex items-center gap-2.5">
-              <MessageCircle size={16} className="shrink-0 text-yellow-400" /> +91 1234567890 (WhatsApp)
+              <MessageCircle size={16} className="shrink-0 text-yellow-400" /> +91 6306757612 (WhatsApp)
             </p>
             <p className="flex items-center gap-2.5">
-              <Mail size={16} className="shrink-0 text-yellow-400" /> info@surefund.in
+              <Mail size={16} className="shrink-0 text-yellow-400" /> support@surefund.in
             </p>
           </div>
         </div>

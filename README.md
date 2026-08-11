@@ -1,7 +1,7 @@
 # SureFund Financial Services — Platform
 
 **Funding Dreams. Building Futures.**
-Lucknow, Uttar Pradesh, India | info@surefund.in | +91 1234567890
+Lucknow, Uttar Pradesh, India | info@surefund.in | +91 6306757612
 
 A complete loan-DSA platform: public marketing site, customer portal with SMS OTP
 login, a multi-step loan application wizard, and a protected admin dashboard for

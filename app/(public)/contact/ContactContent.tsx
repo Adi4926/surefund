@@ -14,14 +14,14 @@ const contactDetails = [
   {
     icon: Phone,
     title: "Phone",
-    value: "+91 1234567890",
-    href: "tel:+911234567890",
+    value: "+91 6306757612",
+    href: "tel:+916306757612",
   },
   {
     icon: MessageCircle,
     title: "WhatsApp",
-    value: "+91 1234567890",
-    href: "https://wa.me/911234567890",
+    value: "+91 6306757612",
+    href: "https://wa.me/916306757612",
   },
   {
     icon: Mail,
