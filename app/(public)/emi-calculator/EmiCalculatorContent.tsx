@@ -17,19 +17,29 @@ const relatedProducts = [
   { slug: "credit-card", label: "Credit Card", href: "/credit-card", icon: CreditCard },
 ];
 
+// Helper to format number to Indian comma format
+function formatIndianCurrency(num: number | string): string {
+  if (num === "" || num === undefined) return "";
+  const cleaned = String(num).replace(/[^0-9]/g, "");
+  if (cleaned === "") return "";
+  const n = parseInt(cleaned, 10);
+  if (isNaN(n)) return "";
+  return n.toLocaleString("en-IN");
+}
+
 function EmiCalculatorContent() {
   const searchParams = useSearchParams();
   const initialType = searchParams.get("type");
   const initialIndex = initialType === "business" ? 1 : 0;
 
   const [loanTypeIndex, setLoanTypeIndex] = useState(initialIndex);
-  const [amount, setAmount] = useState<number | ''>(500000);
+  const [amount, setAmount] = useState<number>(500000);
   const [rate, setRate] = useState<number | ''>(loanTypes[initialIndex].defaultRate);
   
   const [tenureUnit, setTenureUnit] = useState<"yr" | "mo">("yr");
   const [tenureValue, setTenureValue] = useState<number | ''>(3);
 
-  // Raw string value for amount input to handle commas cleanly while typing
+  // State for amount input text with live commas
   const [amountInput, setAmountInput] = useState<string>("5,00,000");
 
   function selectLoanType(i: number) {
@@ -37,7 +47,6 @@ function EmiCalculatorContent() {
     setRate(loanTypes[i].defaultRate);
   }
 
-  const numericAmount = typeof amount === 'number' ? amount : 0;
   const numericRate = typeof rate === 'number' ? rate : 0;
   const numericTenureVal = typeof tenureValue === 'number' ? tenureValue : 0;
 
@@ -47,23 +56,23 @@ function EmiCalculatorContent() {
     const months = totalMonths > 0 ? totalMonths : 1;
     const monthlyRate = numericRate / 12 / 100;
     if (monthlyRate === 0) {
-      const flatEmi = numericAmount / months;
+      const flatEmi = amount / months;
       return {
         emi: flatEmi,
         totalInterest: 0,
-        totalPayment: numericAmount,
+        totalPayment: amount,
       };
     }
     const emiValue =
-      (numericAmount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+      (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
       (Math.pow(1 + monthlyRate, months) - 1);
     const total = emiValue * months;
     return {
       emi: emiValue,
-      totalInterest: total - numericAmount,
+      totalInterest: total - amount,
       totalPayment: total,
     };
-  }, [numericAmount, numericRate, totalMonths]);
+  }, [amount, numericRate, totalMonths]);
 
   const currentLoanSlug = loanTypes[loanTypeIndex].slug;
 
@@ -133,18 +142,13 @@ function EmiCalculatorContent() {
                   value={amountInput}
                   onChange={(e) => {
                     const rawValue = e.target.value.replace(/[^0-9]/g, "");
-                    setAmountInput(e.target.value);
                     if (rawValue === "") {
-                      setAmount("");
-                    } else {
-                      setAmount(Number(rawValue));
-                    }
-                  }}
-                  onBlur={() => {
-                    if (amount !== "") {
-                      setAmountInput(Number(amount).toLocaleString("en-IN"));
-                    } else {
                       setAmountInput("");
+                      setAmount(0);
+                    } else {
+                      const num = Number(rawValue);
+                      setAmount(num);
+                      setAmountInput(formatIndianCurrency(num));
                     }
                   }}
                   className="w-36 bg-transparent text-xl font-bold text-white outline-none"
@@ -156,11 +160,11 @@ function EmiCalculatorContent() {
               min={50000}
               max={5000000}
               step={10000}
-              value={numericAmount}
+              value={amount}
               onChange={(e) => {
                 const val = Number(e.target.value);
                 setAmount(val);
-                setAmountInput(val.toLocaleString("en-IN"));
+                setAmountInput(formatIndianCurrency(val));
               }}
               className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
             />
@@ -284,7 +288,7 @@ function EmiCalculatorContent() {
           <div className="mt-10 space-y-5 border-t border-white/10 pt-8 text-sm">
             <div className="flex justify-between">
               <span className="text-white/60">Principal Amount</span>
-              <span className="font-semibold text-white text-base">₹{numericAmount.toLocaleString("en-IN")}</span>
+              <span className="font-semibold text-white text-base">₹{amount.toLocaleString("en-IN")}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-white/60">Total Interest</span>
