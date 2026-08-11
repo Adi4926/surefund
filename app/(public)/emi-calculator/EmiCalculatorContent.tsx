@@ -11,15 +11,6 @@ const loanTypes = [
   { label: "Business Loan", icon: Briefcase, defaultRate: 14, slug: "business-loan" },
 ];
 
-const tenureOptions = [
-  { label: "1 yr", months: 12 },
-  { label: "2 yr", months: 24 },
-  { label: "3 yr", months: 36 },
-  { label: "4 yr", months: 48 },
-  { label: "5 yr", months: 60 },
-  { label: "7 yr", months: 84 },
-];
-
 const relatedProducts = [
   { slug: "personal-loan", label: "Personal Loan", href: "/personal-loan", icon: User },
   { slug: "business-loan", label: "Business Loan", href: "/business-loan", icon: Briefcase },
@@ -32,35 +23,47 @@ function EmiCalculatorContent() {
   const initialIndex = initialType === "business" ? 1 : 0;
 
   const [loanTypeIndex, setLoanTypeIndex] = useState(initialIndex);
-  const [amount, setAmount] = useState(500000);
-  const [rate, setRate] = useState(loanTypes[initialIndex].defaultRate);
-  const [tenure, setTenure] = useState(36); // months
+  const [amount, setAmount] = useState<number | ''>(500000);
+  const [rate, setRate] = useState<number | ''>(loanTypes[initialIndex].defaultRate);
+  
+  const [tenureUnit, setTenureUnit] = useState<"yr" | "mo">("yr");
+  const [tenureValue, setTenureValue] = useState<number | ''>(3);
+
+  // Raw string value for amount input to handle commas cleanly while typing
+  const [amountInput, setAmountInput] = useState<string>("5,00,000");
 
   function selectLoanType(i: number) {
     setLoanTypeIndex(i);
     setRate(loanTypes[i].defaultRate);
   }
 
+  const numericAmount = typeof amount === 'number' ? amount : 0;
+  const numericRate = typeof rate === 'number' ? rate : 0;
+  const numericTenureVal = typeof tenureValue === 'number' ? tenureValue : 0;
+
+  const totalMonths = tenureUnit === "yr" ? numericTenureVal * 12 : numericTenureVal;
+
   const { emi, totalInterest, totalPayment } = useMemo(() => {
-    const monthlyRate = rate / 12 / 100;
+    const months = totalMonths > 0 ? totalMonths : 1;
+    const monthlyRate = numericRate / 12 / 100;
     if (monthlyRate === 0) {
-      const flatEmi = amount / tenure;
+      const flatEmi = numericAmount / months;
       return {
         emi: flatEmi,
         totalInterest: 0,
-        totalPayment: amount,
+        totalPayment: numericAmount,
       };
     }
     const emiValue =
-      (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
-      (Math.pow(1 + monthlyRate, tenure) - 1);
-    const total = emiValue * tenure;
+      (numericAmount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+      (Math.pow(1 + monthlyRate, months) - 1);
+    const total = emiValue * months;
     return {
       emi: emiValue,
-      totalInterest: total - amount,
+      totalInterest: total - numericAmount,
       totalPayment: total,
     };
-  }, [amount, rate, tenure]);
+  }, [numericAmount, numericRate, totalMonths]);
 
   const currentLoanSlug = loanTypes[loanTypeIndex].slug;
 
@@ -119,20 +122,46 @@ function EmiCalculatorContent() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="space-y-10 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl sm:p-10"
         >
+          {/* 1. Loan Amount */}
           <div>
-            <div className="mb-4 flex items-end justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <span className="text-sm font-medium text-white/60">Loan Amount</span>
-              <span className="text-2xl font-bold text-white">
-                ₹{amount.toLocaleString("en-IN")}
-              </span>
+              <div className="flex items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-3 py-1.5 focus-within:border-accent">
+                <span className="text-xl font-bold text-white">₹</span>
+                <input
+                  type="text"
+                  value={amountInput}
+                  onChange={(e) => {
+                    const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                    setAmountInput(e.target.value);
+                    if (rawValue === "") {
+                      setAmount("");
+                    } else {
+                      setAmount(Number(rawValue));
+                    }
+                  }}
+                  onBlur={() => {
+                    if (amount !== "") {
+                      setAmountInput(Number(amount).toLocaleString("en-IN"));
+                    } else {
+                      setAmountInput("");
+                    }
+                  }}
+                  className="w-36 bg-transparent text-xl font-bold text-white outline-none"
+                />
+              </div>
             </div>
             <input
               type="range"
               min={50000}
               max={5000000}
               step={10000}
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              value={numericAmount}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                setAmount(val);
+                setAmountInput(val.toLocaleString("en-IN"));
+              }}
               className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
             />
             <div className="mt-2 flex justify-between text-xs text-white/40">
@@ -141,17 +170,30 @@ function EmiCalculatorContent() {
             </div>
           </div>
 
+          {/* 2. Interest Rate */}
           <div>
-            <div className="mb-4 flex items-end justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <span className="text-sm font-medium text-white/60">Interest Rate (p.a.)</span>
-              <span className="text-2xl font-bold text-white">{rate}%</span>
+              <div className="flex items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-3 py-1.5 focus-within:border-accent">
+                <input
+                  type="number"
+                  step={0.1}
+                  value={rate === '' ? '' : rate}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setRate(val === '' ? '' : Number(val));
+                  }}
+                  className="w-16 bg-transparent text-xl font-bold text-white outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+                <span className="text-xl font-bold text-white">%</span>
+              </div>
             </div>
             <input
               type="range"
               min={5}
               max={24}
               step={0.1}
-              value={rate}
+              value={numericRate}
               onChange={(e) => setRate(Number(e.target.value))}
               className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
             />
@@ -161,32 +203,68 @@ function EmiCalculatorContent() {
             </div>
           </div>
 
+          {/* 3. Tenure */}
           <div>
-            <div className="mb-4 flex items-end justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <span className="text-sm font-medium text-white/60">Tenure</span>
-              <span className="text-2xl font-bold text-white">
-                {tenure} <span className="text-lg font-normal text-white/60">months</span>
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {tenureOptions.map((opt) => {
-                const active = tenure === opt.months;
-                return (
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-3 py-1.5 focus-within:border-accent">
+                  <input
+                    type="number"
+                    value={tenureValue === '' ? '' : tenureValue}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setTenureValue(val === '' ? '' : Number(val));
+                    }}
+                    className="w-14 bg-transparent text-xl font-bold text-white outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  />
+                </div>
+                <div className="flex rounded-lg border border-white/15 bg-white/5 p-0.5 text-xs font-semibold">
                   <button
-                    key={opt.months}
-                    onClick={() => setTenure(opt.months)}
-                    className={`rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 ${
-                      active
-                        ? "border-accent bg-accent text-white"
-                        : "border-white/15 bg-white/5 text-white/60 hover:border-white/25 hover:bg-white/10 hover:text-white"
+                    onClick={() => {
+                      if (tenureUnit !== "yr") {
+                        setTenureUnit("yr");
+                        setTenureValue(Math.max(1, Math.round(numericTenureVal / 12)));
+                      }
+                    }}
+                    className={`rounded-md px-2.5 py-1 transition-all ${
+                      tenureUnit === "yr" ? "bg-accent text-white" : "text-white/60 hover:text-white"
                     }`}
                   >
-                    {opt.label}
+                    Yr
                   </button>
-                );
-              })}
+                  <button
+                    onClick={() => {
+                      if (tenureUnit !== "mo") {
+                        setTenureUnit("mo");
+                        setTenureValue(numericTenureVal * 12);
+                      }
+                    }}
+                    className={`rounded-md px-2.5 py-1 transition-all ${
+                      tenureUnit === "mo" ? "bg-accent text-white" : "text-white/60 hover:text-white"
+                    }`}
+                  >
+                    Mo
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <input
+              type="range"
+              min={1}
+              max={tenureUnit === "yr" ? 30 : 360}
+              step={1}
+              value={numericTenureVal}
+              onChange={(e) => setTenureValue(Number(e.target.value))}
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent outline-none"
+            />
+            <div className="mt-2 flex justify-between text-xs text-white/40">
+              <span>{tenureUnit === "yr" ? "1 Yr" : "1 Mo"}</span>
+              <span>{tenureUnit === "yr" ? "30 Yrs" : "360 Mos"}</span>
             </div>
           </div>
+
         </motion.div>
 
         {/* --- RIGHT CARD: RESULT --- */}
@@ -199,25 +277,25 @@ function EmiCalculatorContent() {
           <div className="text-center md:text-left">
             <p className="text-sm font-medium text-accent">Your Estimated Monthly EMI</p>
             <p className="mt-2 text-5xl font-bold text-white drop-shadow-md">
-              ₹{emi.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+              ₹{isNaN(emi) ? 0 : emi.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
             </p>
           </div>
 
           <div className="mt-10 space-y-5 border-t border-white/10 pt-8 text-sm">
             <div className="flex justify-between">
               <span className="text-white/60">Principal Amount</span>
-              <span className="font-semibold text-white text-base">₹{amount.toLocaleString("en-IN")}</span>
+              <span className="font-semibold text-white text-base">₹{numericAmount.toLocaleString("en-IN")}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-white/60">Total Interest</span>
               <span className="font-semibold text-white text-base">
-                ₹{totalInterest.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+                ₹{isNaN(totalInterest) ? 0 : totalInterest.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
               </span>
             </div>
             <div className="flex justify-between border-t border-white/5 pt-5">
               <span className="text-white/80 font-medium">Total Payment</span>
               <span className="font-bold text-accent text-lg">
-                ₹{totalPayment.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+                ₹{isNaN(totalPayment) ? 0 : totalPayment.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
