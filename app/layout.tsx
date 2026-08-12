@@ -133,7 +133,7 @@ export default function RootLayout({
 
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Your Office Address", // ⚠️ actual address daal do
+      streetAddress: "2/26, 2nd Floor, Ruchi Khand 1, Sharda Nagar, Lucknow, Uttar Pradesh 226012", // ⚠️ actual address daal do
       addressLocality: "Lucknow",
       addressRegion: "Uttar Pradesh",
       postalCode: "226012",
