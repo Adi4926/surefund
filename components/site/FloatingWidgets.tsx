@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_COMPANY_WHATSAPP?.replace(/\D/g, "") || "916306757612";
 const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hi SureFund! I'm interested in a loan. Could you please help me?"
+  "Hi SureFund Team! I'm interested in a loan. Could you please help me?"
 );
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
