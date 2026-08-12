@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Get Personal Loans, Business Loans, Home Loans and Credit Card assistance with fast processing, expert guidance and and 25+ bank partners.",
+    "Get Personal Loans, Business Loans, Home Loans and Credit Card assistance with fast processing, expert guidance and 25+ bank partners.",
 
   keywords: [
     "Personal Loan",
