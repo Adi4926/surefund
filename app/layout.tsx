@@ -145,7 +145,7 @@ export default function RootLayout({
     sameAs: [
       // ⚠️ jo active na ho use hata do
       "https://www.instagram.com/surefund.in",
-      "https://www.linkedin.com/company/yourcompany",
+      "https://www.linkedin.com/company/surefund-financial-services-pvt-ltd/",
      
     ],
   };

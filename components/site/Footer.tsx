@@ -111,7 +111,7 @@ export default function Footer() {
           {/* LinkedIn */}
           <li className="relative group">
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/company/surefund-financial-services-pvt-ltd/" 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="LinkedIn"
