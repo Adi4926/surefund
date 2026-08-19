@@ -12,7 +12,7 @@ export const faqItems = [
   {
     question: "What is the minimum CIBIL score required?",
     answer:
-      "We generally look for a CIBIL score of 700 or above for personal and business loans. However, eligibility also depends on income, employment type, and other factors.",
+      "We generally look for a CIBIL score of 620 or above for personal and business loans. However, eligibility also depends on income, employment type, and other factors.",
   },
   {
     question: "Can I apply for a loan if I'm self-employed?",
