@@ -4,16 +4,15 @@ import SplashScreen from "@/components/site/SplashScreen";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://surefund.in"),
+  metadataBase: new URL("https://www.surefund.in"),
 
   title: {
-    default:
-      "SureFund Financial Services - Personal Loan, Business Loan & Credit Card Assistance",
+    default: "SureFund | Personal , Business Loans & Credit Card",
     template: "%s | SureFund",
   },
 
   description:
-    "Get Personal Loans, Business Loans, Home Loans and Credit Card assistance with fast processing, expert guidance and 25+ bank partners.",
+    "Get Personal Loans, Business Loans, and Credit Card assistance in Lucknow with fast processing, expert guidance, and 25+ bank partners.",
 
   keywords: [
     "Personal Loan",
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://surefund.in",
+    url: "https://www.surefund.in",
     siteName: "SureFund",
 
     title:
@@ -111,18 +110,18 @@ export default function RootLayout({
 
     legalName: "SureFund Financial Services Pvt. Ltd.",
 
-    url: "https://surefund.in",
+    url: "https://www.surefund.in",
 
-    logo: "https://surefund.in/logo.png",
+    logo: "https://www.surefund.in/logo.png",
 
-    image: "https://surefund.in/og-image.jpg",
+    image: "https://www.surefund.in/og-image.jpg",
 
     description:
       "SureFund Financial Services Pvt. Ltd. provides Personal Loans, Business Loans, Home Loans and Credit Card assistance.",
 
-    telephone: "+91-6306757612", // ⚠️ apna actual business number daal do
+    telephone: "+91-6306757612",
 
-    email: "support@surefund.in", // ⚠️ apna actual support email confirm kar lo
+    email: "support@surefund.in",
 
     priceRange: "₹₹",
 
@@ -133,7 +132,7 @@ export default function RootLayout({
 
     address: {
       "@type": "PostalAddress",
-      streetAddress: "2/26, 2nd Floor, Ruchi Khand 1, Sharda Nagar, Lucknow, Uttar Pradesh 226012", // ⚠️ actual address daal do
+      streetAddress: "2/26, 2nd Floor, Ruchi Khand 1, Sharda Nagar, Lucknow, Uttar Pradesh 226012",
       addressLocality: "Lucknow",
       addressRegion: "Uttar Pradesh",
       postalCode: "226012",
@@ -143,10 +142,8 @@ export default function RootLayout({
     openingHours: "Mo-Sa 09:00-18:00",
 
     sameAs: [
-      // ⚠️ jo active na ho use hata do
       "https://www.instagram.com/surefund.in",
       "https://www.linkedin.com/company/surefund-financial-services-pvt-ltd/",
-     
     ],
   };
 
@@ -156,7 +153,7 @@ export default function RootLayout({
 
     name: "SureFund",
 
-    url: "https://surefund.in",
+    url: "https://www.surefund.in",
 
     publisher: {
       "@type": "Organization",
