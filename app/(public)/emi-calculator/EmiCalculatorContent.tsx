@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
+import { useMemo, useState, useEffect, Suspense } from "react";
 import { Calculator, User, Briefcase, ArrowRight, CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -27,15 +27,32 @@ function formatIndianCurrency(num: number | string): string {
   return n.toLocaleString("en-IN");
 }
 
-function EmiCalculatorContent() {
+// यह छोटा सा component सिर्फ ?type=business जैसे URL query param को पढ़ता है।
+// इसे अपने अलग, छोटे Suspense boundary में रखा गया है — ताकि सिर्फ यही हिस्सा
+// client-side पर hydrate हो, और बाकी पूरा calculator (heading, sliders, results)
+// server पर normal तरीके से render हो और crawler को पूरा content दिखे।
+function TypeParamSync({
+  onDetectType,
+}: {
+  onDetectType: (index: number) => void;
+}) {
   const searchParams = useSearchParams();
-  const initialType = searchParams.get("type");
-  const initialIndex = initialType === "business" ? 1 : 0;
 
-  const [loanTypeIndex, setLoanTypeIndex] = useState(initialIndex);
+  useEffect(() => {
+    const type = searchParams.get("type");
+    if (type === "business") {
+      onDetectType(1);
+    }
+  }, [searchParams, onDetectType]);
+
+  return null;
+}
+
+function EmiCalculatorContent() {
+  const [loanTypeIndex, setLoanTypeIndex] = useState(0);
   const [amount, setAmount] = useState<number>(500000);
-  const [rate, setRate] = useState<number | ''>(loanTypes[initialIndex].defaultRate);
-  
+  const [rate, setRate] = useState<number | ''>(loanTypes[0].defaultRate);
+
   const [tenureUnit, setTenureUnit] = useState<"yr" | "mo">("yr");
   const [tenureValue, setTenureValue] = useState<number | ''>(3);
 
@@ -45,6 +62,11 @@ function EmiCalculatorContent() {
   function selectLoanType(i: number) {
     setLoanTypeIndex(i);
     setRate(loanTypes[i].defaultRate);
+  }
+
+  function handleDetectTypeFromUrl(index: number) {
+    setLoanTypeIndex(index);
+    setRate(loanTypes[index].defaultRate);
   }
 
   const numericRate = typeof rate === 'number' ? rate : 0;
@@ -78,6 +100,11 @@ function EmiCalculatorContent() {
 
   return (
     <div className="relative min-h-screen overflow-hidden pt-32 pb-20 font-sans text-white">
+
+      {/* URL से ?type=business पढ़ने वाला छोटा, invisible component */}
+      <Suspense fallback={null}>
+        <TypeParamSync onDetectType={handleDetectTypeFromUrl} />
+      </Suspense>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -324,13 +351,35 @@ function EmiCalculatorContent() {
         tenure depend on the lender&apos;s assessment of your profile.
       </motion.p>
 
+      {/* --- HOW EMI IS CALCULATED (static, crawlable content) --- */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+        className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-20"
+      >
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl sm:p-10">
+          <h2 className="mb-4 text-2xl font-bold text-white">How Is EMI Calculated?</h2>
+          <p className="text-sm leading-relaxed text-white/70">
+            Your EMI (Equated Monthly Installment) depends on three factors: the loan
+            amount (principal), the annual interest rate, and the repayment tenure.
+            A longer tenure lowers your monthly EMI but increases the total interest
+            paid over the life of the loan, while a shorter tenure raises the EMI but
+            reduces total interest. Use the sliders above to see how each factor
+            changes your estimated monthly payment for a Personal Loan or Business
+            Loan with SureFund.
+          </p>
+        </div>
+      </motion.div>
+
       {/* --- YOU MAY ALSO LIKE --- */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-50px" }}
         transition={{ duration: 0.6 }}
-        className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-20"
+        className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-12"
       >
         <h2 className="mb-8 text-center text-2xl font-bold text-white md:text-3xl">
           You May Also Like
@@ -362,9 +411,5 @@ function EmiCalculatorContent() {
 }
 
 export default function EmiCalculatorInner() {
-  return (
-    <Suspense fallback={null}>
-      <EmiCalculatorContent />
-    </Suspense>
-  );
+  return <EmiCalculatorContent />;
 }
