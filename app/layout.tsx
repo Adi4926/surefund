@@ -110,6 +110,8 @@ export default function RootLayout({
 
     legalName: "SureFund Financial Services Pvt. Ltd.",
 
+    taxID: "U66190UP2026PTC251167",
+
     url: "https://www.surefund.in",
 
     logo: "https://www.surefund.in/logo.png",
