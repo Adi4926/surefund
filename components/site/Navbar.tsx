@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, UserCircle2, ChevronDown } from "lucide-react";
@@ -73,32 +74,20 @@ export default function Navbar() {
       <header className="sticky top-4 z-50 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between gap-4">
           
-          {/* 1. Left: Text Logo */}
-          <Link href="/" className="hidden lg:flex flex-col items-center px-2 py-1 transition-opacity hover:opacity-90">
-            <div className="flex items-baseline font-extrabold tracking-tight text-xl leading-none">
-              <span className="text-white">sure</span>
-              <span className="text-indigo-500">fund</span>
-              <span className="text-gray-400 text-xs font-semibold ml-0.5">.in</span>
-            </div>
-            <span className="text-[8px] font-bold tracking-[0.25em] text-white/70 uppercase mt-1 text-center w-full">
-              Financial Services
-            </span>
+          {/* 1. Left: Full Image Logo — मोबाइल और डेस्कटॉप दोनों पर, pill container के बाहर */}
+          <Link href="/" className="flex items-center px-2 py-1 transition-opacity hover:opacity-90 shrink-0">
+            <Image
+              src="/logo-full.png"
+              alt="SureFund Financial Services Pvt Ltd"
+              width={220}
+              height={220}
+              priority
+              className="h-16 w-auto object-contain lg:h-24"
+            />
           </Link>
 
           {/* 2. Center: Apple Liquid Glass Drop Sliding Pill Navbar */}
-          <div className="relative flex-1 lg:flex-none flex items-center justify-between lg:justify-center rounded-full border border-white/15 bg-white/10 p-1.5 shadow-2xl backdrop-blur-2xl">
-            
-            {/* Mobile Logo inside pill container */}
-            <Link href="/" className="flex lg:hidden flex-col items-start px-2 py-1">
-              <div className="flex items-baseline font-extrabold tracking-tight text-base leading-none">
-                <span className="text-white">sure</span>
-                <span className="text-indigo-500">fund</span>
-                <span className="text-gray-400 text-[10px] font-semibold ml-0.5">.in</span>
-              </div>
-              <span className="text-[6px] font-bold tracking-[0.2em] text-white/70 uppercase mt-0.5 text-left w-full">
-                Financial Services
-              </span>
-            </Link>
+          <div className="relative flex-1 lg:flex-none flex items-center justify-end lg:justify-center rounded-full lg:border lg:border-white/15 bg-transparent lg:bg-white/10 p-0 lg:p-1.5 shadow-none lg:shadow-2xl backdrop-blur-none lg:backdrop-blur-2xl">
 
             {/* Desktop Links with Framer Motion LayoutId */}
             <nav className="hidden items-center gap-1 lg:flex">
@@ -173,7 +162,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Toggle Button */}
             <button 
-              className="text-white lg:hidden px-3 transition-transform active:scale-95" 
+              className="text-white lg:hidden px-3 py-1.5 transition-transform active:scale-95" 
               onClick={() => setOpen((prev) => !prev)}
               aria-label="Toggle Menu"
             >
