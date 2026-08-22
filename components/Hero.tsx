@@ -23,7 +23,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="section relative z-10 flex flex-col items-center text-center">
+      <div className="section !pt-6 md:!pt-10 relative z-10 flex flex-col items-center text-center">
         {/* Tag */}
         <motion.span
           initial={{ y: -12 }}
