@@ -151,7 +151,7 @@ export default function Footer() {
 
       {/* Bottom Copyright & Disclaimer */}
       <div className="border-t border-white/10 px-6 py-6 text-center text-xs text-white/40">
-        © {new Date().getFullYear()} SureFund Financial Services Pvt. Ltd.(CIN: U66190UP2026PTC251167). All rights
+        © {new Date().getFullYear()} SureFund Financial Services Pvt. Ltd. (CIN: U66190UP2026PTC251167). All rights
         reserved. SureFund is a loan DSA (Direct Selling Agent) and does not itself
         disburse loans — all loans are sanctioned and disbursed by partner
         banks/NBFCs subject to their credit policies.
