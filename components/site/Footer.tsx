@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 
 const productLinks = [
@@ -30,15 +31,14 @@ export default function Footer() {
         
         {/* Brand & Contact Info */}
         <div className="space-y-4">
-          <Link href="/" className="inline-flex flex-col items-start transition-opacity hover:opacity-90">
-            <div className="flex items-baseline font-extrabold tracking-tight text-xl leading-none">
-              <span className="text-white">sure</span>
-              <span className="text-indigo-400">fund</span>
-              <span className="text-gray-400 text-xs font-semibold ml-0.5">.in</span>
-            </div>
-            <span className="text-[7px] font-bold tracking-[0.2em] text-white/60 uppercase mt-1">
-              Financial Services
-            </span>
+          <Link href="/" className="inline-flex items-center transition-opacity hover:opacity-90">
+            <Image
+              src="/logo-full.png"
+              alt="SureFund Financial Services Pvt Ltd"
+              width={220}
+              height={220}
+              className="h-14 w-auto object-contain"
+            />
           </Link>
           
           <p className="text-sm font-medium text-white/80">Funding Dreams. Building Futures.</p>
